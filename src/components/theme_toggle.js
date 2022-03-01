@@ -18,7 +18,6 @@ const HangingThread = style.div`
 const ThemeToggle = () => {
   const { colors } = useTheme();
   const { toggleColorMode } = useColorMode();
-  console.log(colors.sun);
   return (
     <Box pos={"absolute"} right={"3rem"} top={"0"}>
       <HangingThread

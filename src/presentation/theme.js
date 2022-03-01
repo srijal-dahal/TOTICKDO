@@ -22,7 +22,9 @@ const colors = {
   sun: "#FC9449",
 };
 
-const components = {};
+const components = {
+
+};
 const config = {
   initialColorModeName: "dark",
   useSystemColorMode: true,
