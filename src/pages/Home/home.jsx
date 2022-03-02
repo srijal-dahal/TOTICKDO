@@ -7,7 +7,7 @@ import Template from "../Template";
 const Home = () => {
   return (
     <Template>
-      <Text>Hello Worls</Text>
+      <Text>Hello World</Text>
     </Template>
   );
 };

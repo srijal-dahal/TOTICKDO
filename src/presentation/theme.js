@@ -18,13 +18,12 @@ const colors = {
     50: "9A9CA0", // muted
     100: "#FFFFFF", // white
     200: "#3D4960", // primary thin dark
+    300: "#E2E1E1", // border
   },
   sun: "#FC9449",
 };
 
-const components = {
-
-};
+const components = {};
 const config = {
   initialColorModeName: "dark",
   useSystemColorMode: true,
