@@ -1,4 +1,5 @@
 import { Flex, Box, useTheme, Link } from "@chakra-ui/react";
+import { Link } from "react-router-dom";
 function Tab({ links }) {
   const { colors } = useTheme();
   return (
@@ -14,6 +15,7 @@ function Tab({ links }) {
         return (
           <Box key={index}>
             <Link
+              as={Link}
               to={link.path}
               _hover={{
                 textDecoration: "none",

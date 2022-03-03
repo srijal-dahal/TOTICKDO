@@ -8,9 +8,9 @@ import { Tab } from "_components";
 const Template = ({ children }) => {
   const { colors } = useTheme();
   const links = [
-    { path: "/general", name: "General" },
+    { path: "/", name: "General" },
     { path: "/completed", name: "Completed" },
-    { path: "/all-todos", name: "All Todos" },
+    { path: "/all_todos", name: "All Todos" },
     { path: "/about", name: "About" },
   ];
   return (

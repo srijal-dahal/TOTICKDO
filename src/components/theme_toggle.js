@@ -61,16 +61,6 @@ const ThemeToggle = () => {
           />
         </Box>
       )}
-
-      {/* <IconButton
-        icon={useColorModeValue(<MoonIcon />, <SunIcon />)}
-        bg={useColorModeValue(`${colors.primary[100]}`, `${colors.sun}`)}
-        onClick={toggleColorMode}
-        title="Toggle theme"
-        pos={"absolute"}
-        right={"-1.2rem"}
-        _focus={"none"}
-      /> */}
     </Box>
   );
 };
