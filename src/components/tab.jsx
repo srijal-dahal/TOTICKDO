@@ -1,21 +1,21 @@
 import { Flex, Box, useTheme, Link } from "@chakra-ui/react";
-import { Link } from "react-router-dom";
+import { Link as ReactLink } from "react-router-dom";
 function Tab({ links }) {
   const { colors } = useTheme();
   return (
     <Flex
       borderBottomWidth={"0.3px"}
       borderColor={colors.secondary[300]}
-      px={4}
+      px={"7rem"}
       py={2}
       justifyContent={"space-around"}
       alignItems={"center"}
     >
       {links.map((link, index) => {
         return (
-          <Box key={index}>
+          <Box key={index} _focus={"none"}>
             <Link
-              as={Link}
+              as={ReactLink}
               to={link.path}
               _hover={{
                 textDecoration: "none",
@@ -23,6 +23,7 @@ function Tab({ links }) {
                 borderBottomColor: colors.primary[200],
                 paddingBottom: "0.7rem",
               }}
+              _focus={"none"}
             >
               {link.name}
             </Link>

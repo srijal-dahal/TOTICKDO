@@ -5,12 +5,11 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import { Tab } from "_components";
-const Template = ({ children }) => {
+const Template = ({ children, ...rest }) => {
   const { colors } = useTheme();
   const links = [
     { path: "/", name: "General" },
     { path: "/completed", name: "Completed" },
-    { path: "/all_todos", name: "All Todos" },
     { path: "/about", name: "About" },
   ];
   return (
@@ -29,7 +28,7 @@ const Template = ({ children }) => {
         rounded="md"
       >
         <Tab links={links} />
-        {children}
+        <Box {...rest}>{children}</Box>
       </Box>
     </FlexBox>
   );
