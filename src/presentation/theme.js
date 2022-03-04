@@ -26,28 +26,38 @@ const colors = {
 const components = {
   Text: {
     variants: {
-      pirmaryGreenText: {
+      pirmaryGreenText: (props) => ({
         color: "primary.200",
         fontFamily: "Lato",
-      },
-      primaryHeading: {
+      }),
+      primaryHeading: (props) => ({
         fontSize: "3xl",
         fontWeight: "bold",
         fontFamily: "Lato",
         color: "primary.200",
-      },
+      }),
     },
   },
-  /* Rectangle 2 */
 
   Input: {
+    baseStyle: {
+      field: {
+        bg: "primary.50",
+      },
+    },
     variants: {
       primaryInput: {
-        bg: "primary.50",
-        borderRadius: "8px",
-        _placeholder: {
-          color:"secondary.200",
-        }
+        field: {
+          color: "secondary.50",
+          borderRadius: "8px",
+          _focus: {
+            borderWidth: "2px",
+            borderColor: "primary.200",
+          },
+          _placeholder: {
+            color: "secondary.50",
+          },
+        },
       },
     },
   },
