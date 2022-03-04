@@ -50,16 +50,56 @@ const components = {
         field: {
           color: "secondary.50",
           borderRadius: "8px",
-          _focus: {
-            borderWidth: "2px",
-            borderColor: "primary.200",
-          },
+          _focus: "none",
           _placeholder: {
             color: "secondary.50",
           },
         },
       },
     },
+  },
+  Checkbox: {
+    baseStyle: {
+      icon: {
+        color: "primary.200",
+      },
+      control: {
+        bg: "primary.50",
+        _focus: "none",
+        _hover: {
+          borderColor: "primary.200",
+          bg: "primary.50",
+        },
+        _checked: {
+          bg: "primary.50",
+          borderColor: "none",
+
+          _focus: "none",
+          _hover: {
+            borderColor: "primary.200",
+            bg: "primary.50",
+          },
+        },
+      },
+    },
+  },
+  Link: {
+    baseStyle: {
+      fontFamily: "Lato",
+      _hover: {
+        textDecoration: "none",
+        borderBottomWidth: 2,
+        borderBottomColor: "primary.200",
+        paddingBottom: "0.7rem",
+        zIndex: "1",
+      },
+      _focus: "none",
+    },
+  },
+  Divider: {
+    baseStyle: (props) => ({
+      bg: mode("primary.200", "primary.200")(props),
+    }),
   },
 };
 const config = {
