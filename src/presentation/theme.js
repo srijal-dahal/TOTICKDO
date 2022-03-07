@@ -26,10 +26,7 @@ const colors = {
 const components = {
   Text: {
     variants: {
-      pirmaryGreenText: (props) => ({
-        color: "primary.200",
-        fontFamily: "Lato",
-      }),
+     
       primaryHeading: (props) => ({
         fontSize: "3xl",
         fontWeight: "bold",

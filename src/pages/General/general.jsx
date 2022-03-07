@@ -12,13 +12,13 @@ const General = () => {
   ];
   function clickHandler() {
     setIsChecked((isPrev) => !isPrev);
-    console.log(isChecked);
   }
   return (
     <Template padding={5}>
       <Text variant={"primaryHeading"}>Friday</Text>
       <Text
-        variant={"pirmaryGreenText"}
+        color="primary.200"
+        fontFamily="Lato"
         fontWeight={"light"}
         fontSize={"0.7rem"}
         letterSpacing={1}
