@@ -1,17 +1,36 @@
 import React, { useState } from "react";
-import { Box, Divider, useTheme, Text, Spacer, Center } from "@chakra-ui/react";
+import {
+  Box,
+  useTheme,
+  Divider,
+  Text,
+  Spacer,
+  Center,
+  Button,
+} from "@chakra-ui/react";
 import { AssetInput, Image, List } from "_components";
 import Template from "../Template";
 import TodoSvg from "_assets/todos.png";
+import { useSelector, useDispatch } from "react-redux";
+import { addTodo, updateTodo } from "./action";
 const General = () => {
   const [isChecked, setIsChecked] = useState(false);
-  const todos = [
-    { todo: "Do something", done: false },
-    { todo: "Do something else", done: true },
-    { todo: "Do something else", done: true },
-  ];
-  function clickHandler() {
-    setIsChecked((isPrev) => !isPrev);
+  const [todo, setTodo] = useState("");
+  const dispatch = useDispatch();
+  const { error, message, isLoading, todos } = useSelector(
+    (state) => state.general
+  );
+
+  function clickHandler(e, todo) {
+    dispatch(updateTodo(todo));
+  }
+  function onChangeHandler(e) {
+    setTodo(e.target.value);
+  }
+  function submitHandler(e) {
+    e.preventDefault();
+    dispatch(addTodo({ todo, status: false }));
+    setTodo("");
   }
   return (
     <Template padding={5}>
@@ -27,35 +46,63 @@ const General = () => {
       </Text>
       <Spacer mt={5} />
       <AssetInput
-        asset={
+        value={todo}
+        leftAsset={
           <Image src={TodoSvg} h={"20px"} w={"20px"} resizeMode={"contain"} />
         }
+        rightAsset={
+          <Button
+            variant={"mutedButton"}
+            size={"sm"}
+            h={"1.5rem"}
+            onClick={submitHandler}
+          >
+            Add
+          </Button>
+        }
+        changeHandler={onChangeHandler}
         placeHolder={"Add Todos"}
         variant={"primaryInput"}
       />
       <Spacer mt={5} />
-      <List
-        isChecked={isChecked}
-        todoText="TodoText"
-        clickHandler={clickHandler}
-      />
-      <Spacer mb={4} />
-
-      <Center>
-        <Divider w={"90%"} />
-      </Center>
-      <Spacer mt={4} />
-
-      {todos.map((todo, i) => {
-        return (
+      {todos.length != 0 && !isLoading && (
+        <>
           <List
-            key={i}
-            isChecked={todo.done}
-            todoText={todo.todo}
+            isChecked={todos[0].status}
+            todoText={todos[0].todo}
+            todo={todos[0]}
             clickHandler={clickHandler}
           />
-        );
-      })}
+          <Spacer mb={4} />
+          <Center>
+            <Divider w={"90%"} />
+          </Center>
+          <Spacer mt={4} />
+          {todos
+            .filter((todo) => todos[0] != todo)
+            .map((todo, i) => {
+              return (
+                <List
+                  key={i}
+                  todo={todo}
+                  isChecked={todo.status}
+                  todoText={todo.todo}
+                  clickHandler={clickHandler}
+                />
+              );
+            })}
+        </>
+      )}
+      {todos.length === 0 && (
+        <Text
+          fontWeight={"normal"}
+          fontStyle={"normal"}
+          color="secondary.muted"
+        >
+          No Currrent List
+        </Text>
+      )}
+      {isLoading && <Text>Loading...</Text>}
     </Template>
   );
 };

@@ -20,9 +20,9 @@ export const addTodo = (payload) => {
     payload: payload,
   };
 };
-export const getTodos = (payload) => {
+export const addTodoSuccess = (payload) => {
   return {
-    type: actionTypes.GET_TODO_SUCCESS,
+    type: actionTypes.ADD_TODO_SUCCESS,
     payload: payload,
   };
 };

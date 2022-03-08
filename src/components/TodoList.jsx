@@ -1,10 +1,13 @@
 import { HStack, Spacer, Text } from "@chakra-ui/react";
 import { CheckBox, Image } from "_components";
 import InfoSvg from "_assets/info.png";
-function List({ isChecked, todoText, clickHandler }) {
+function List({ isChecked, todoText, clickHandler, todo }) {
   return (
     <HStack alignItems={"center"} w="100%">
-      <CheckBox isChecked={isChecked} onChange={clickHandler} />
+      <CheckBox
+        isChecked={isChecked}
+        onChange={(e) => clickHandler(e, todo)}
+      />
       <Text
         fontFamily={"Lato"}
         lineHeight={"26px"}

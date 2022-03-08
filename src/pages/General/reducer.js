@@ -1,8 +1,8 @@
 import actionTypes from "./type";
 const initState = {
   isLoading: false,
-  isError: false,
-  tods: [],
+  error: "",
+  todos: [],
   message: "",
 };
 export default (state = initState, action) => {
@@ -18,12 +18,23 @@ export default (state = initState, action) => {
         isError: action.payload,
       };
 
-    case actionTypes.GET_TODO_SUCCESS:
+    case actionTypes.ADD_TODO_SUCCESS:
       return {
         ...state,
-        tods: action.payload,
+        todos: [...state.todos, action.payload],
       };
-
+    case actionTypes.EDIT_TODO:
+     
+      const updateTodos = state.todos.filter(
+        (todo) => todo.id === action.payload.id
+      );
+      if (updateTodos.length > 0) {
+        updateTodos[0].status = !updateTodos[0].status;
+      }
+      return {
+        ...state,
+        todos: [...state.todos],
+      };
     case actionTypes.SET_MESSAGE:
       return {
         ...state,

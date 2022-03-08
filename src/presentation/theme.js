@@ -24,9 +24,27 @@ const colors = {
 };
 
 const components = {
+  Button: {
+    baseStyle: {
+      fontFamily: "Lato",
+      fontWeight: "light",
+      _focus: "none",
+    },
+    variants: {
+      mutedButton: {
+        bg: "secondary.50",
+        color: "primary.50",
+        _hover: "none",
+        _focus: {
+          borderColor: "primary.200",
+          borderWidth: "2px",
+          borderStyle: "outline",
+        },
+      },
+    },
+  },
   Text: {
     variants: {
-     
       primaryHeading: (props) => ({
         fontSize: "3xl",
         fontWeight: "bold",
