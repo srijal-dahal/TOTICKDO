@@ -1,17 +1,36 @@
 import { call, put, takeEvery } from "redux-saga/effects";
 import actionTypes from "./type";
 import { addTodoSuccess, setLoading, setError, setMessage } from "./action";
+import Api from "../../utils/service";
 function* addTodo({ payload }) {
   try {
     yield put(setLoading(true));
-    let todos = {
-      id: Math.floor(Math.random() * 1000),
-      ...payload,
-    };
 
-    yield put(addTodoSuccess(todos));
-    setMessage("Todo added successfully");
-    yield put(setLoading(false));
+    const { todo, status } = payload;
+    const response = yield call(
+      Api.post,
+      "/todos/create/user=6210bae75f3a886b654a9cc1",
+      {
+        name: todo,
+        status: status,
+      }
+    );
+    if (response.data.success === true) {
+      const getTodos = yield call(
+        Api.get,
+        "todos/getTodos/user=6210bae75f3a886b654a9cc1"
+      );
+      if (getTodos.data.success === true) {
+        yield put(addTodoSuccess(getTodos.data.message.todos));
+        setMessage("Todo added successfully");
+        return yield put(setLoading(false));
+      }
+    } else {
+      setError(response.data.message);
+      yield put(setLoading(false));
+
+      return;
+    }
   } catch (error) {
     console.log(error);
     yield put(setError(error));

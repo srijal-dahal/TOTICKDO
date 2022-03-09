@@ -68,9 +68,9 @@ const General = () => {
       {todos.length != 0 && !isLoading && (
         <>
           <List
-            isChecked={todos[0].status}
-            todoText={todos[0].todo}
-            todo={todos[0]}
+            isChecked={todos[0][0].status}
+            todoText={todos[0][0].todo}
+            todo={todos[0][0]}
             clickHandler={clickHandler}
           />
           <Spacer mb={4} />
@@ -78,15 +78,15 @@ const General = () => {
             <Divider w={"90%"} />
           </Center>
           <Spacer mt={4} />
-          {todos
-            .filter((todo) => todos[0] != todo)
+          {todos[0]
+            .filter((todo) => todos[0][0] != todo)
             .map((todo, i) => {
               return (
                 <List
                   key={i}
                   todo={todo}
                   isChecked={todo.status}
-                  todoText={todo.todo}
+                  todoText={todo.name}
                   clickHandler={clickHandler}
                 />
               );
