@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Box,
   useTheme,
@@ -12,7 +12,7 @@ import { AssetInput, Image, List } from "_components";
 import Template from "../Template";
 import TodoSvg from "_assets/todos.png";
 import { useSelector, useDispatch } from "react-redux";
-import { addTodo, updateTodo } from "./action";
+import { addTodo, updateTodo, getTodos } from "./action";
 const General = () => {
   const [isChecked, setIsChecked] = useState(false);
   const [todo, setTodo] = useState("");
@@ -32,6 +32,10 @@ const General = () => {
     dispatch(addTodo({ todo, status: false }));
     setTodo("");
   }
+  useEffect(() => {
+    dispatch(getTodos());
+  }, []);
+  console.log(todos);
   return (
     <Template padding={5}>
       <Text variant={"primaryHeading"}>Friday</Text>
@@ -69,7 +73,7 @@ const General = () => {
         <>
           <List
             isChecked={todos[0][0].status}
-            todoText={todos[0][0].todo}
+            todoText={todos[0][0].name}
             todo={todos[0][0]}
             clickHandler={clickHandler}
           />
@@ -93,15 +97,16 @@ const General = () => {
             })}
         </>
       )}
-      {todos.length === 0 && (
-        <Text
-          fontWeight={"normal"}
-          fontStyle={"normal"}
-          color="secondary.muted"
-        >
-          No Currrent List
-        </Text>
-      )}
+      {todos.length === 0 ||
+        (todos[0].length === 0 && (
+          <Text
+            fontWeight={"normal"}
+            fontStyle={"normal"}
+            color="secondary.muted"
+          >
+            No Currrent List
+          </Text>
+        ))}
       {isLoading && <Text>Loading...</Text>}
     </Template>
   );

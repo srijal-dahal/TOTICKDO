@@ -24,7 +24,6 @@ export default (state = initState, action) => {
         todos: [...state.todos, action.payload],
       };
     case actionTypes.EDIT_TODO:
-     
       const updateTodos = state.todos.filter(
         (todo) => todo.id === action.payload.id
       );
@@ -39,6 +38,11 @@ export default (state = initState, action) => {
       return {
         ...state,
         message: action.payload,
+      };
+    case actionTypes.GET_TODOS_SUCCESS:
+      return {
+        ...state,
+        todos: [...state.todos, action.payload],
       };
     default:
       return state;
