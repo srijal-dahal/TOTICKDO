@@ -20,8 +20,8 @@ export default (state = initState, action) => {
 
     case actionTypes.ADD_TODO_SUCCESS:
       return {
-        ...state,
-        todos: [...state.todos, action.payload],
+        ...state.todos,
+        todos: action.payload,
       };
     case actionTypes.EDIT_TODO:
       const updateTodos = state.todos.filter(
@@ -41,8 +41,8 @@ export default (state = initState, action) => {
       };
     case actionTypes.GET_TODOS_SUCCESS:
       return {
-        ...state,
-        todos: [...state.todos, action.payload],
+        ...state.todos,
+        todos: action.payload,
       };
     default:
       return state;

@@ -28,14 +28,13 @@ const General = () => {
     setTodo(e.target.value);
   }
   function submitHandler(e) {
-    e.preventDefault();
     dispatch(addTodo({ todo, status: false }));
     setTodo("");
   }
   useEffect(() => {
     dispatch(getTodos());
   }, []);
-  console.log(todos);
+
   return (
     <Template padding={5}>
       <Text variant={"primaryHeading"}>Friday</Text>
@@ -72,9 +71,9 @@ const General = () => {
       {todos.length != 0 && !isLoading && (
         <>
           <List
-            isChecked={todos[0][0].status}
-            todoText={todos[0][0].name}
-            todo={todos[0][0]}
+            isChecked={todos[0].status}
+            todoText={todos[0].name}
+            todo={todos[0]}
             clickHandler={clickHandler}
           />
           <Spacer mb={4} />
@@ -82,8 +81,8 @@ const General = () => {
             <Divider w={"90%"} />
           </Center>
           <Spacer mt={4} />
-          {todos[0]
-            .filter((todo) => todos[0][0] != todo)
+          {todos
+            .filter((todo) => todos[0] != todo)
             .map((todo, i) => {
               return (
                 <List
@@ -97,16 +96,15 @@ const General = () => {
             })}
         </>
       )}
-      {todos.length === 0 ||
-        (todos[0].length === 0 && (
-          <Text
-            fontWeight={"normal"}
-            fontStyle={"normal"}
-            color="secondary.muted"
-          >
-            No Currrent List
-          </Text>
-        ))}
+      {todos.length === 0 && (
+        <Text
+          fontWeight={"normal"}
+          fontStyle={"normal"}
+          color="secondary.muted"
+        >
+          No Currrent List
+        </Text>
+      )}
       {isLoading && <Text>Loading...</Text>}
     </Template>
   );
