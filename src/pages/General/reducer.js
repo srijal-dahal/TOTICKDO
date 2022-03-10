@@ -1,9 +1,12 @@
 import actionTypes from "./type";
+
 const initState = {
   isLoading: false,
   error: "",
   todos: [],
   message: "",
+  inComplete: 0,
+  complete: 0,
 };
 export default (state = initState, action) => {
   switch (action.type) {
@@ -20,7 +23,7 @@ export default (state = initState, action) => {
 
     case actionTypes.ADD_TODO_SUCCESS:
       return {
-        ...state.todos,
+        ...state,
         todos: action.payload,
       };
     case actionTypes.EDIT_TODO:
@@ -41,8 +44,18 @@ export default (state = initState, action) => {
       };
     case actionTypes.GET_TODOS_SUCCESS:
       return {
-        ...state.todos,
+        ...state,
         todos: action.payload,
+      };
+    case actionTypes.SET_INCOMPLETE:
+      return {
+        ...state,
+        inComplete: action.payload,
+      };
+    case actionTypes.SET_COMPLETE:
+      return {
+        ...state,
+        complete: action.payload,
       };
     default:
       return state;

@@ -4,3 +4,4 @@ export { default as Image } from "./image";
 export { default as List } from "./TodoList";
 export * from "./Inputs";
 export * from "./CheckBox";
+export * from "./Menu";

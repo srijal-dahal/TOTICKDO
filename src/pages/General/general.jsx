@@ -1,14 +1,6 @@
 import React, { useState, useEffect } from "react";
-import {
-  Box,
-  useTheme,
-  Divider,
-  Text,
-  Spacer,
-  Center,
-  Button,
-} from "@chakra-ui/react";
-import { AssetInput, Image, List } from "_components";
+import { Divider, Text, Spacer, Center, Button } from "@chakra-ui/react";
+import { AssetInput, Image, List, IconMenu } from "_components";
 import Template from "../Template";
 import TodoSvg from "_assets/todos.png";
 import { useSelector, useDispatch } from "react-redux";
@@ -17,10 +9,8 @@ const General = () => {
   const [isChecked, setIsChecked] = useState(false);
   const [todo, setTodo] = useState("");
   const dispatch = useDispatch();
-  const { error, message, isLoading, todos } = useSelector(
-    (state) => state.general
-  );
-
+  const { error, message, isLoading, todos, inComplete, complete } =
+    useSelector((state) => state.general);
   function clickHandler(e, todo) {
     dispatch(updateTodo(todo));
   }
@@ -34,10 +24,22 @@ const General = () => {
   useEffect(() => {
     dispatch(getTodos());
   }, []);
+  const weekDay = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+  const day = new Date().getDay();
+  const date= weekDay[day];
+  console.log(inComplete,complete);
 
   return (
     <Template padding={5}>
-      <Text variant={"primaryHeading"}>Friday</Text>
+      <Text variant={"primaryHeading"}>{date ?? "Firday"}</Text>
       <Text
         color="primary.200"
         fontFamily="Lato"
@@ -45,7 +47,7 @@ const General = () => {
         fontSize={"0.7rem"}
         letterSpacing={1}
       >
-        2 incomplete and 2 completed
+        {inComplete} incomplete and {complete} completed
       </Text>
       <Spacer mt={5} />
       <AssetInput

@@ -57,3 +57,15 @@ export const setMessage = (payload) => {
     payload: payload,
   };
 };
+export const setIncompleteTodos = (payload) => {
+  return {
+    type: actionTypes.SET_INCOMPLETE,
+    payload: payload,
+  };
+};
+export const setCompleteTodos = (payload) => {
+  return {
+    type: actionTypes.SET_INCOMPLETE,
+    payload: payload,
+  };
+};
