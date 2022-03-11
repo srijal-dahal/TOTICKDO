@@ -47,7 +47,6 @@ function* addTodo({ payload }) {
 function* updateTodo({ payload }) {
   try {
     const { _id, status } = payload;
-    console.log(payload);
     const toggledStatus = !status ?? false;
     const updatedTodos = yield call(Api.put, `/todos/update/${_id}`, {
       status: toggledStatus,
