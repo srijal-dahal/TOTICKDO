@@ -6,7 +6,9 @@ function List({ isChecked, todoText, clickHandler, todo }) {
     <HStack alignItems={"center"} w="100%">
       <CheckBox
         isChecked={isChecked}
-        onChange={(e) => clickHandler(e, todo)}
+        onChange={() => {
+          clickHandler(todo);
+        }}
       />
       <Text
         fontFamily={"Lato"}

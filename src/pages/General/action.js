@@ -20,6 +20,12 @@ export const addTodo = (payload) => {
     payload: payload,
   };
 };
+export const setTodos = (payload) => {
+  return {
+    type: actionTypes.SET_TODOS,
+    payload: payload,
+  };
+};
 export const getTodos = () => {
   return {
     type: actionTypes.GET_TODOS,

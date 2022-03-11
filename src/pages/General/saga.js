@@ -6,6 +6,7 @@ import {
   setError,
   setMessage,
   getTodosSuccess,
+  setTodos,
 } from "./action";
 import Api from "../../utils/service";
 function* addTodo({ payload }) {
@@ -31,7 +32,7 @@ function* addTodo({ payload }) {
         getTodos.data.success === true &&
         getTodos.data.message.todos.length != 0
       ) {
-        yield put(addTodoSuccess(getTodos.data.message.todos));
+        yield put(setTodos(getTodos.data.message.todos));
         setMessage("Todo added successfully");
         return yield put(setLoading(false));
       }
@@ -45,8 +46,17 @@ function* addTodo({ payload }) {
 }
 function* updateTodo({ payload }) {
   try {
-    yield put(setLoading(true));
-    yield put(setLoading(false));
+    const { _id, status } = payload;
+    console.log(payload);
+    const toggledStatus = !status ?? false;
+    const updatedTodos = yield call(Api.put, `/todos/update/${_id}`, {
+      status: toggledStatus,
+    });
+    if (updatedTodos.data.success === true) {
+      yield put(setTodos(updatedTodos.data.message.todos));
+      yield put(setMessage("Todo updated successfully"));
+      return ;
+    }
   } catch (error) {
     yield put(setError(error));
   }
@@ -62,7 +72,7 @@ function* getTodos() {
       if (getTodos.data.message.todos.length === 0) {
         return yield put(setLoading(false));
       }
-      yield put(getTodosSuccess(getTodos.data.message.todos));
+      yield put(setTodos(getTodos.data.message.todos));
       setMessage("Todo added successfully");
       return yield put(setLoading(false));
     }

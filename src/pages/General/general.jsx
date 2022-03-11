@@ -9,9 +9,10 @@ const General = () => {
   const [isChecked, setIsChecked] = useState(false);
   const [todo, setTodo] = useState("");
   const dispatch = useDispatch();
-  const { error, message, isLoading, todos,  } =
-    useSelector((state) => state.general);
-  function clickHandler(e, todo) {
+  const { error, message, isLoading, todos } = useSelector(
+    (state) => state.general
+  );
+  function clickHandler(todo) {
     dispatch(updateTodo(todo));
   }
   function onChangeHandler(e) {
@@ -34,9 +35,9 @@ const General = () => {
     "Saturday",
   ];
   const day = new Date().getDay();
-  const date= weekDay[day];
-   const inCompleteTodos= todos.filter(todo=>todo.status===false).length;
-    const completeTodos= todos.filter(todo=>todo.status===true).length;
+  const date = weekDay[day];
+  const inCompleteTodos = todos.filter((todo) => todo.status === false).length;
+  const completeTodos = todos.filter((todo) => todo.status === true).length;
   return (
     <Template padding={5}>
       <Text variant={"primaryHeading"}>{date ?? "Firday"}</Text>
@@ -47,7 +48,7 @@ const General = () => {
         fontSize={"0.7rem"}
         letterSpacing={1}
       >
-      {inCompleteTodos ?? 0} incomplete and {completeTodos ?? 0} completed
+        {inCompleteTodos ?? 0} incomplete and {completeTodos ?? 0} completed
       </Text>
       <Spacer mt={5} />
       <AssetInput
