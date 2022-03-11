@@ -6,8 +6,6 @@ import {
   setError,
   setMessage,
   getTodosSuccess,
-  setIncompleteTodos,
-  setCompleteTodos,
 } from "./action";
 import Api from "../../utils/service";
 function* addTodo({ payload }) {
@@ -33,16 +31,6 @@ function* addTodo({ payload }) {
         getTodos.data.success === true &&
         getTodos.data.message.todos.length != 0
       ) {
-        const incomplete = getTodos.data.message.todos.filter(
-          (item) => item.status === false
-        );
-        const complete = getTodos.data.message.todos.filter(
-          (item) => item.status === true
-        );
-        console.log({incomplete,complete});
-
-        yield put(setIncompleteTodos(incomplete.length));
-        yield put(setCompleteTodos(complete.length));
         yield put(addTodoSuccess(getTodos.data.message.todos));
         setMessage("Todo added successfully");
         return yield put(setLoading(false));
@@ -74,15 +62,6 @@ function* getTodos() {
       if (getTodos.data.message.todos.length === 0) {
         return yield put(setLoading(false));
       }
-      const incomplete = getTodos.data.message.todos.filter(
-        (item) => item.status === false
-      );
-      const complete = getTodos.data.message.todos.filter(
-        (item) => item.status === true
-      );
-        console.log({incomplete,complete});
-      yield put(setIncompleteTodos(incomplete.length));
-      yield put(setCompleteTodos(complete.length));
       yield put(getTodosSuccess(getTodos.data.message.todos));
       setMessage("Todo added successfully");
       return yield put(setLoading(false));

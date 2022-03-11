@@ -4,9 +4,7 @@ const initState = {
   isLoading: false,
   error: "",
   todos: [],
-  message: "",
-  inComplete: 0,
-  complete: 0,
+  message: ""
 };
 export default (state = initState, action) => {
   switch (action.type) {
@@ -47,17 +45,7 @@ export default (state = initState, action) => {
         ...state,
         todos: action.payload,
       };
-    case actionTypes.SET_INCOMPLETE:
-      return {
-        ...state,
-        inComplete: action.payload,
-      };
-    case actionTypes.SET_COMPLETE:
-      return {
-        ...state,
-        complete: action.payload,
-      };
-    default:
+   default:
       return state;
   }
 };
