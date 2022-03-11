@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Divider, Text, Spacer, Center, Button } from "@chakra-ui/react";
-import { AssetInput, Image, List, IconMenu } from "_components";
+import { AssetInput, Image, List } from "_components";
 import Template from "../Template";
 import TodoSvg from "_assets/todos.png";
 import { useSelector, useDispatch } from "react-redux";
-import { addTodo, updateTodo, getTodos } from "./action";
+import { addTodo, updateTodo, getTodos, deleteTodo } from "./action";
 const General = () => {
   const [isChecked, setIsChecked] = useState(false);
   const [todo, setTodo] = useState("");
@@ -22,6 +22,9 @@ const General = () => {
     dispatch(addTodo({ todo, status: false }));
     setTodo("");
   }
+  function deleteHandler(todo) {
+    dispatch(deleteTodo(todo));
+  }
   useEffect(() => {
     dispatch(getTodos());
   }, []);
@@ -38,6 +41,12 @@ const General = () => {
   const date = weekDay[day];
   const inCompleteTodos = todos.filter((todo) => todo.status === false).length;
   const completeTodos = todos.filter((todo) => todo.status === true).length;
+  const menuItemOptions = [
+    {
+      itemName: "Delete",
+      submitHandler: deleteHandler,
+    },
+  ];
   return (
     <Template padding={5}>
       <Text variant={"primaryHeading"}>{date ?? "Firday"}</Text>
@@ -78,6 +87,7 @@ const General = () => {
             todoText={todos[0].name}
             todo={todos[0]}
             clickHandler={clickHandler}
+            menuItem={menuItemOptions}
           />
           <Spacer mb={4} />
           <Center>
@@ -94,6 +104,7 @@ const General = () => {
                   isChecked={todo.status}
                   todoText={todo.name}
                   clickHandler={clickHandler}
+                  menuItem={menuItemOptions}
                 />
               );
             })}

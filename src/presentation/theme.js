@@ -41,6 +41,15 @@ const components = {
           borderStyle: "outline",
         },
       },
+      iconButton: {
+        bg: "transparent",
+        _focus: "none",
+        display: "flex",
+        margin: "0px",
+        padding: "0px",
+        alignItems: "center",
+        _hover: "none"
+      },
     },
   },
   Text: {

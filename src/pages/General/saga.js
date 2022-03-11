@@ -1,16 +1,8 @@
 import { call, put, takeEvery } from "redux-saga/effects";
 import actionTypes from "./type";
-import {
-  addTodoSuccess,
-  setLoading,
-  setError,
-  setMessage,
-  getTodosSuccess,
-  setTodos,
-} from "./action";
+import { setLoading, setError, setMessage, setTodos } from "./action";
 import Api from "../../utils/service";
 function* addTodo({ payload }) {
-  console.log("payload");
   try {
     yield put(setLoading(true));
 
@@ -54,7 +46,7 @@ function* updateTodo({ payload }) {
     if (updatedTodos.data.success === true) {
       yield put(setTodos(updatedTodos.data.message.todos));
       yield put(setMessage("Todo updated successfully"));
-      return ;
+      return;
     }
   } catch (error) {
     yield put(setError(error));
@@ -81,8 +73,23 @@ function* getTodos() {
     yield put(setError(error));
   }
 }
+function* deleteTodo({ payload }) {
+  try {
+    const { _id } = payload;
+    const deletedTodo = yield call(Api.delete, `/todos/delete/${_id}`);
+    if (deletedTodo.data.success === true) {
+      yield put(setTodos(deletedTodo.data.message.todos));
+      setMessage("Todo deleted successfully");
+      return;
+    }
+  } catch (error) {
+    console.log(error)
+    yield put(setError(error));
+  }
+}
 export default function* watcher() {
   yield takeEvery(actionTypes.ADD_TODO, addTodo);
   yield takeEvery(actionTypes.EDIT_TODO, updateTodo);
   yield takeEvery(actionTypes.GET_TODOS, getTodos);
+  yield takeEvery(actionTypes.DELETE_TODO, deleteTodo);
 }

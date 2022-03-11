@@ -31,18 +31,7 @@ export const getTodos = () => {
     type: actionTypes.GET_TODOS,
   };
 };
-export const getTodosSuccess = (payload) => {
-  return {
-    type: actionTypes.GET_TODOS_SUCCESS,
-    payload: payload,
-  };
-};
-export const addTodoSuccess = (payload) => {
-  return {
-    type: actionTypes.ADD_TODO_SUCCESS,
-    payload: payload,
-  };
-};
+
 export const deleteTodo = (payload) => {
   return {
     type: actionTypes.DELETE_TODO,
@@ -60,18 +49,6 @@ export const updateTodo = (payload) => {
 export const setMessage = (payload) => {
   return {
     type: actionTypes.SET_MESSAGE,
-    payload: payload,
-  };
-};
-export const setIncompleteTodos = (payload) => {
-  return {
-    type: actionTypes.SET_INCOMPLETE,
-    payload: payload,
-  };
-};
-export const setCompleteTodos = (payload) => {
-  return {
-    type: actionTypes.SET_INCOMPLETE,
     payload: payload,
   };
 };

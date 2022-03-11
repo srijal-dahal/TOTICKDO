@@ -4,26 +4,30 @@ import {
   IconButton,
   MenuList,
   MenuItem,
+  useTheme,
 } from "@chakra-ui/react";
-function IconMenu({ icon, menuItem,submitHandler }) {
+function IconMenu({ icon, menuItem ,...props}) {
+  const {todo}=props;
+  const validMenuItem =
+    menuItem != undefined || menuItem.length != 0 ? menuItem : [];
   return (
     <Menu>
       <MenuButton
         as={IconButton}
         display="flex"
         alignItems="center"
-        varian={"outline"}
+        variant={"iconButton"}
         icon={icon}
+        bg="transparent"
       />
       <MenuList>
-        {menuItem.length != 0 &&
-          menuItem.map((item, index) => {
-            return (
-              <MenuItem key={index} onClick={submitHandler}>
-                {item}
-              </MenuItem>
-            );
-          })}
+        {validMenuItem.map((item, index) => {
+          return (
+            <MenuItem key={index} onClick={()=>{item.submitHandler(todo)}}>
+              {item.itemName}
+            </MenuItem>
+          );
+        })}
       </MenuList>
     </Menu>
   );
