@@ -19,13 +19,13 @@ const Template = ({ children, ...rest }) => {
       alignItems={"center"}
       h={"100vh"}
       w={"100vw"}
-      boxShadow=" 2px 7px 4px rgba(0, 0, 0, 0.35)"
     >
       <Box
         h={"550px"}
         w={"550px"}
         bg={useColorModeValue(colors.secondary[100], colors.secondary[200])}
         rounded="md"
+      boxShadow="lg"
       >
         <Tab links={links} />
         <Box {...rest}>{children}</Box>

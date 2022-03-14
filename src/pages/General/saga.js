@@ -15,19 +15,14 @@ function* addTodo({ payload }) {
         status: status,
       }
     );
-    if (response.data.success === true) {
-      const getTodos = yield call(
-        Api.get,
-        "todos/getTodos/user=6210bae75f3a886b654a9cc1"
-      );
-      if (
-        getTodos.data.success === true &&
-        getTodos.data.message.todos.length != 0
-      ) {
-        yield put(setTodos(getTodos.data.message.todos));
-        setMessage("Todo added successfully");
-        return yield put(setLoading(false));
-      }
+    console.log(response);
+    if (
+      response.data.success === true &&
+      response.data.message.todos.length != 0
+    ) {
+      yield put(setTodos(response.data.message.todos));
+      setMessage("Todo added successfully");
+      return yield put(setLoading(false));
     }
     yield put(setError(response.data.message));
     yield put(setLoading(false));
@@ -83,7 +78,7 @@ function* deleteTodo({ payload }) {
       return;
     }
   } catch (error) {
-    console.log(error)
+    console.log(error);
     yield put(setError(error));
   }
 }
