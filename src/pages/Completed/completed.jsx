@@ -11,7 +11,7 @@ import {
     console.log("🚀 ~ file: completed.jsx ~ line 11 ~ Completed ~ todos", todos)
     useEffect(() => {
       dispatch(getTodos())
-    })
+    },[])
     return (
       <Template>
         <Text>Hello Completed</Text>
