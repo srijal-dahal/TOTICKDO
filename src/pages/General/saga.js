@@ -15,7 +15,6 @@ function* addTodo({ payload }) {
         status: status,
       }
     );
-    console.log(response);
     if (
       response.data.success === true &&
       response.data.message.todos.length != 0
