@@ -6,7 +6,6 @@ import TodoSvg from "_assets/todos.png";
 import { useSelector, useDispatch } from "react-redux";
 import { addTodo, updateTodo, getTodos, deleteTodo } from "./action";
 const General = () => {
-  const [isChecked, setIsChecked] = useState(false);
   const [todo, setTodo] = useState("");
   const dispatch = useDispatch();
   const { error, message, isLoading, todos } = useSelector(
@@ -120,7 +119,7 @@ const General = () => {
         </Text>
       )}
       {isLoading && <Text>Loading...</Text>}
-    </Template>
+          </Template>
   );
 };
 
