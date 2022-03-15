@@ -15,9 +15,9 @@ export const setError = (payload) => {
 };
 
 
-export const setTodos = (payload) => {
+export const setCompletedTodos = (payload) => {
   return {
-    type: actionTypes.SET_TODOS,
+    type: actionTypes.SET_COMPLETED_TODOS,
     payload: payload,
   };
 };

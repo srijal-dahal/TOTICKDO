@@ -3,7 +3,7 @@ import actionTypes from "./completed_type";
 const initState = {
   isLoading: false,
   error: "",
-  todos: [],
+  completedTodos: [],
   message: "",
 };
 export default (state = initState, action) => {
@@ -18,10 +18,10 @@ export default (state = initState, action) => {
         ...state,
         isError: action.payload,
       };
-    case actionTypes.SET_TODOS:
+    case actionTypes.SET_COMPLETED_TODOS:
       return {
         ...state,
-        todos: action.payload,
+        completedTodos: action.payload,
       };
 
     case actionTypes.SET_MESSAGE:

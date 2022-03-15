@@ -1,6 +1,6 @@
 import { call, put, takeEvery } from "redux-saga/effects";
 import actionTypes from "./completed_type";
-import { setLoading, setError, setMessage, setTodos } from "./completed_action";
+import { setLoading, setError, setMessage, setCompletedTodos } from "./completed_action";
 import Api from "../../utils/service";
 
 function* getTodos() {
@@ -15,8 +15,7 @@ function* getTodos() {
       if (getTodos.data.message.todos.length === 0) {
         return yield put(setLoading(false));
       }
-        console.log(getTodos.data.message.todos);
-      yield put(setTodos(getTodos.data.message.todos));
+      yield put(setCompletedTodos(getTodos.data.message.todos));
       setMessage("Todo added successfully");
       return yield put(setLoading(false));
     }
@@ -31,7 +30,7 @@ function* deleteTodo({ payload }) {
     const { _id } = payload;
     const deletedTodo = yield call(Api.delete, `/todos/delete/${_id}`);
     if (deletedTodo.data.success === true) {
-      yield put(setTodos(deletedTodo.data.message.todos));
+      yield put(setCompletedTodos(deletedTodo.data.message.todos));
       setMessage("Todo deleted successfully");
       return;
     }
