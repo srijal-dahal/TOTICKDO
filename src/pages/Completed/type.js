@@ -1,9 +1,0 @@
-export default {
-    SET_TODOS: " SET_TODOS",
-    "GET_TODOS": "GET_TODOS",
-    DELETE_TODO: "DELETE_TODO",
-    TODO_LOADING: "TODO_LOADING",
-    TODO_ERROR: "TODO_ERROR",
-    SET_MESSAGE: "SET_MESSAGE",
-  };
-  

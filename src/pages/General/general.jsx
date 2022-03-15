@@ -4,7 +4,7 @@ import { AssetInput, Image, List } from "_components";
 import Template from "../Template";
 import TodoSvg from "_assets/todos.png";
 import { useSelector, useDispatch } from "react-redux";
-import { addTodo, updateTodo, getTodos, deleteTodo } from "./action";
+import { addTodo, updateTodo, getTodos, deleteTodo } from "./general_action";
 const General = () => {
   const [todo, setTodo] = useState("");
   const dispatch = useDispatch();
