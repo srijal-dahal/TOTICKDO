@@ -44,7 +44,7 @@ const Completed = () => {
         fontSize={"0.7rem"}
         letterSpacing={1}
       >
-        {incompleteTodosLength ?? 0} pending todos
+        {incompleteTodosLength ?? 0} pending and {completedTodosLength ?? 0} todos
         completed
       </Text>
       <Spacer mb={4} />
