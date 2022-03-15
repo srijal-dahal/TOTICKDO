@@ -5,6 +5,8 @@ const initState = {
   error: "",
   completedTodos: [],
   message: "",
+  incompleteTodosLength: 0,
+  completedTodosLength: 0,
 };
 export default (state = initState, action) => {
   switch (action.type) {
@@ -28,6 +30,16 @@ export default (state = initState, action) => {
       return {
         ...state,
         message: action.payload,
+      };
+    case actionTypes.SET_INCOMPLETE_TODOS_COUNT:
+      return {
+        ...state,
+        incompleteTodosLength: action.payload,
+      };
+    case actionTypes.SET_COMPLETED_TODOS_COUNT:
+      return {
+        ...state,
+        completedTodosLength: action.payload,
       };
 
     default:

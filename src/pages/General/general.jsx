@@ -8,9 +8,8 @@ import { addTodo, updateTodo, getTodos, deleteTodo } from "./general_action";
 const General = () => {
   const [todo, setTodo] = useState("");
   const dispatch = useDispatch();
-  const { error, message, isLoading, todos } = useSelector(
-    (state) => state.general
-  );
+  const { isLoading, todos, incompleteTodosLength, completedTodosLength } =
+    useSelector((state) => state.general);
   function clickHandler(todo) {
     dispatch(updateTodo(todo));
   }
@@ -38,8 +37,6 @@ const General = () => {
   ];
   const day = new Date().getDay();
   const date = weekDay[day];
-  const inCompleteTodos = todos.filter((todo) => todo.status === false).length;
-  const completeTodos = todos.filter((todo) => todo.status === true).length;
   const menuItemOptions = [
     {
       itemName: "Delete",
@@ -48,7 +45,7 @@ const General = () => {
   ];
   return (
     <Template padding={5}>
-      <Text variant={"primaryHeading"}>{date ?? "Firday"}</Text>
+      <Text variant={"primaryHeading"}>{date ?? "Today"}</Text>
       <Text
         color="primary.200"
         fontFamily="Lato"
@@ -56,7 +53,7 @@ const General = () => {
         fontSize={"0.7rem"}
         letterSpacing={1}
       >
-        {inCompleteTodos ?? 0} incomplete and {completeTodos ?? 0} completed
+        {incompleteTodosLength ?? 0} pending and {completedTodosLength ?? 0} completed
       </Text>
       <Spacer mt={5} />
       <AssetInput
@@ -119,7 +116,7 @@ const General = () => {
         </Text>
       )}
       {isLoading && <Text>Loading...</Text>}
-          </Template>
+    </Template>
   );
 };
 

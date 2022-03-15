@@ -1,6 +1,13 @@
 import { call, put, takeEvery } from "redux-saga/effects";
 import actionTypes from "./general_type";
-import { setLoading, setError, setMessage, setTodos } from "./general_action";
+import {
+  setLoading,
+  setError,
+  setMessage,
+  setTodos,
+  setIncompleteTodosCount,
+  setCompletedTodosCount,
+} from "./general_action";
 import Api from "../../utils/service";
 function* addTodo({ payload }) {
   try {
@@ -17,9 +24,15 @@ function* addTodo({ payload }) {
     );
     if (
       response.data.success === true &&
-      response.data.message.todos.length != 0
+      response.data.message.data.todos.length != 0
     ) {
-      yield put(setTodos(response.data.message.todos));
+      yield put(setTodos(response.data.message.data.todos));
+      yield put(
+        setCompletedTodosCount(response.data.message.data.completedTodosCount)
+      );
+      yield put(
+        setIncompleteTodosCount(response.data.message.data.pendingTodosCount)
+      );
       setMessage("Todo added successfully");
       return yield put(setLoading(false));
     }
@@ -38,7 +51,13 @@ function* updateTodo({ payload }) {
       status: toggledStatus,
     });
     if (updatedTodos.data.success === true) {
-      yield put(setTodos(updatedTodos.data.message.todos));
+      yield put(setTodos(updatedTodos.data.message.data.todos));
+      yield put(
+        setCompletedTodosCount(updatedTodos.data.message.data.completedTodosCount)
+      );
+      yield put(
+        setIncompleteTodosCount(updatedTodos.data.message.data.pendingTodosCount)
+      );
       yield put(setMessage("Todo updated successfully"));
       return;
     }
@@ -54,10 +73,16 @@ function* getTodos() {
       "todos/getTodos/user=6210bae75f3a886b654a9cc1"
     );
     if (getTodos.data.success === true) {
-      if (getTodos.data.message.todos.length === 0) {
+      if (getTodos.data.message.data.todos.length === 0) {
         return yield put(setLoading(false));
       }
-      yield put(setTodos(getTodos.data.message.todos));
+      yield put(setTodos(getTodos.data.message.data.todos));
+      yield put(
+        setCompletedTodosCount(getTodos.data.message.data.completedTodosCount)
+      );
+      yield put(
+        setIncompleteTodosCount(getTodos.data.message.data.pendingTodosCount)
+      );
       setMessage("Todo added successfully");
       return yield put(setLoading(false));
     }
@@ -67,12 +92,18 @@ function* getTodos() {
     yield put(setError(error));
   }
 }
-function* deleteTodo({ payload }) {
+function* deleteSingleTodo({ payload }) {
   try {
     const { _id } = payload;
     const deletedTodo = yield call(Api.delete, `/todos/delete/${_id}`);
     if (deletedTodo.data.success === true) {
-      yield put(setTodos(deletedTodo.data.message.todos));
+      yield put(setTodos(deletedTodo.data.message.data.todos));
+      yield put(
+        setCompletedTodosCount(deletedTodo.data.message.data.completedTodosCount)
+      );
+      yield put(
+        setIncompleteTodosCount(deletedTodo.data.message.data.pendingTodosCount)
+      );
       setMessage("Todo deleted successfully");
       return;
     }
@@ -82,8 +113,8 @@ function* deleteTodo({ payload }) {
   }
 }
 export default function* watcher() {
-  yield takeEvery(actionTypes.ADD_TODO, addTodo);
-  yield takeEvery(actionTypes.EDIT_TODO, updateTodo);
-  yield takeEvery(actionTypes.GET_TODOS, getTodos);
-  yield takeEvery(actionTypes.DELETE_TODO, deleteTodo);
+  yield takeEvery(actionTypes.ADD_GENERAL_TODO, addTodo);
+  yield takeEvery(actionTypes.EDIT_GENERAL_TODO, updateTodo);
+  yield takeEvery(actionTypes.GET_GENERAL_TODOS, getTodos);
+  yield takeEvery(actionTypes.DELETE_GENERAL_TODO, deleteSingleTodo);
 }

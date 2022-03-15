@@ -41,3 +41,15 @@ export const setMessage = (payload) => {
     payload: payload,
   };
 };
+export const setIncompleteTodosCount=(payload)=>{
+  return{
+    type:actionTypes.SET_INCOMPLETE_TODOS_COUNT,
+    payload:payload
+  }
+}
+export const setCompletedTodosCount=(payload)=>{
+  return{
+    type:actionTypes.SET_COMPLETED_TODOS_COUNT,
+    payload:payload
+  }
+}

@@ -8,12 +8,15 @@ import { getTodos, deleteTodo } from "./completed_action";
 
 const Completed = () => {
   const dispatch = useDispatch();
-  const { completedTodos, isLoading } = useSelector((state) => state.completed);
+  const {
+    completedTodos,
+    isLoading,
+    incompleteTodosLength,
+    completedTodosLength,
+  } = useSelector((state) => state.completed);
   useEffect(() => {
     dispatch(getTodos());
   }, []);
-
-
 
   function deleteHandler(todo) {
     dispatch(deleteTodo(todo));
@@ -22,8 +25,7 @@ const Completed = () => {
     dispatch(getTodos());
   }, []);
 
-  const inCompleteTodos = completedTodos.filter((todo) => todo.status === false).length;
-  const completeTodosLength = completedTodos.filter((todo) => todo.status === true).length;
+  
   const menuItemOptions = [
     {
       itemName: "Delete",
@@ -33,7 +35,7 @@ const Completed = () => {
   return (
     <Template padding={5}>
       <Text variant={"primaryHeading"}>
-        {`${completeTodosLength} Completed` ?? "Firday"}
+        {completedTodosLength ?? 0} Completed Todos
       </Text>
       <Text
         color="primary.200"
@@ -42,9 +44,10 @@ const Completed = () => {
         fontSize={"0.7rem"}
         letterSpacing={1}
       >
-        {inCompleteTodos ?? 0} incomplete todos completed
+        {incompleteTodosLength ?? 0} pending todos
+        completed
       </Text>
-          <Spacer mb={4} />
+      <Spacer mb={4} />
       <Center>
         <Divider w={"90%"} />
       </Center>
