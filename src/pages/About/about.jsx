@@ -2,7 +2,7 @@ import {
   Center,
   Flex as FlexBox,
   HStack,
-  Link,
+  Link as ChakraLink,
   Text,
   Avatar,
   IconButton,
@@ -27,7 +27,7 @@ const About = () => {
         </Text>
 
         <HStack>
-          <Link
+          {/* <ChakraLink
             as={Link}
             href={"https://www.facebook.com/Yuvraj.Srijal.Dahal"}
             isExternal
@@ -40,8 +40,8 @@ const About = () => {
               _focus={"none"}
               _active={"none"}
             />
-          </Link>
-          <Link as={Link} href={"https://github.com/digital-dahal"} isExternal>
+          </ChakraLink>
+          <ChakraLink as={Link} href={"https://github.com/digital-dahal"} isExternal>
             <IconButton
               icon={<FaGithub size={20} />}
               bg="gray.800"
@@ -50,8 +50,8 @@ const About = () => {
               _focus={"none"}
               _active={"none"}
             />
-          </Link>
-          <Link
+          </ChakraLink>
+          <ChakraLink
             as={Link}
             href={"https://www.instagram.com/yuvrajdl/"}
             isExternal
@@ -64,7 +64,7 @@ const About = () => {
               _focus={"none"}
               _active={"none"}
             />
-          </Link>
+          </ChakraLink> */}
         </HStack>
       </Center>
     </Template>
