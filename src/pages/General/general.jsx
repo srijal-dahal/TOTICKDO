@@ -57,7 +57,6 @@ const General = () => {
       submitHandler: deleteHandler,
     },
   ];
-  const skeletonColor = useColorModeValue("primary.50", "priamary.100");
   return (
     <Template padding={5} loading={isLoading}>
       <Text variant={"primaryHeading"}>{date ?? "Today"}</Text>
