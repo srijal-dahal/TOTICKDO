@@ -44,7 +44,7 @@ const General = () => {
     },
   ];
   return (
-    <Template padding={5}>
+    <Template padding={5} loading={isLoading}>
       <Text variant={"primaryHeading"}>{date ?? "Today"}</Text>
       <Text
         color="primary.200"
@@ -53,7 +53,8 @@ const General = () => {
         fontSize={"0.7rem"}
         letterSpacing={1}
       >
-        {incompleteTodosLength ?? 0} pending and {completedTodosLength ?? 0} completed
+        {incompleteTodosLength ?? 0} pending and {completedTodosLength ?? 0}{" "}
+        completed
       </Text>
       <Spacer mt={5} />
       <AssetInput
@@ -106,7 +107,7 @@ const General = () => {
             })}
         </>
       )}
-      {todos.length === 0 && (
+      {!isLoading && todos.length === 0 && (
         <Text
           fontWeight={"normal"}
           fontStyle={"normal"}
@@ -115,7 +116,6 @@ const General = () => {
           No Currrent List
         </Text>
       )}
-      {isLoading && <Text>Loading...</Text>}
     </Template>
   );
 };

@@ -41,6 +41,7 @@ function* addTodo({ payload }) {
   } catch (error) {
     console.log(error);
     yield put(setError(error));
+    return yield put(setLoading(false));
   }
 }
 function* updateTodo({ payload }) {
@@ -62,7 +63,9 @@ function* updateTodo({ payload }) {
       return;
     }
   } catch (error) {
+    console.log(error);
     yield put(setError(error));
+    return yield put(setLoading(false));
   }
 }
 function* getTodos() {
@@ -90,6 +93,7 @@ function* getTodos() {
   } catch (error) {
     console.log(error);
     yield put(setError(error));
+    return yield put(setLoading(false));
   }
 }
 function* deleteSingleTodo({ payload }) {
@@ -110,6 +114,7 @@ function* deleteSingleTodo({ payload }) {
   } catch (error) {
     console.log(error);
     yield put(setError(error));
+    return yield put(setLoading(false));
   }
 }
 export default function* watcher() {

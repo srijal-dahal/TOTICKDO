@@ -5,14 +5,15 @@ import {
   useColorModeValue,
   Spacer,
 } from "@chakra-ui/react";
-import { Tab } from "_components";
-const Template = ({ children, ...rest }) => {
+import { Tab,Loading } from "_components";
+const Template = ({ children, loading, ...rest }) => {
   const { colors } = useTheme();
   const links = [
     { path: "/", name: "General" },
     { path: "/completed", name: "Completed" },
     { path: "/about", name: "About" },
   ];
+
   return (
     <FlexBox
       dir="column"
@@ -20,7 +21,6 @@ const Template = ({ children, ...rest }) => {
       alignItems={"center"}
       h={"100vh"}
       w={"100vw"}
-
     >
       <Box
         h={"550px"}
@@ -31,16 +31,31 @@ const Template = ({ children, ...rest }) => {
         overflow="hidden"
       >
         <Tab links={links} />
-        <Box {...rest} h="100%" w="100%" overflowY={"scroll"}
-        css={{
-          "&::-webkit-scrollbar": {
-            display: "none",
-          }
-        }}
+        <Box
+          {...rest}
+          h="100%"
+          w="100%"
+          overflowY={"scroll"}
+          css={{
+            "&::-webkit-scrollbar": {
+              display: "none",
+            },
+          }}
         >
-          {children}
-        <Spacer mb={7}/>
+          {!loading && children}
+          {loading && (
+            <Box
+              w="100%"
+              h="90%"
+              display="flex"
+              justifyContent={"center"}
+              alignItems={"center"}
+            >
+              <Loading height={300} width={300} />
+            </Box>
+          )}
 
+          <Spacer mb={7} />
         </Box>
       </Box>
     </FlexBox>

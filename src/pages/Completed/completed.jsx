@@ -25,7 +25,6 @@ const Completed = () => {
     dispatch(getTodos());
   }, []);
 
-  
   const menuItemOptions = [
     {
       itemName: "Delete",
@@ -33,7 +32,7 @@ const Completed = () => {
     },
   ];
   return (
-    <Template padding={5}>
+    <Template padding={5} loading={isLoading}>
       <Text variant={"primaryHeading"}>
         {completedTodosLength ?? 0} Completed Todos
       </Text>
@@ -44,8 +43,8 @@ const Completed = () => {
         fontSize={"0.7rem"}
         letterSpacing={1}
       >
-        {incompleteTodosLength ?? 0} pending and {completedTodosLength ?? 0} todos
-        completed
+        {incompleteTodosLength ?? 0} pending and {completedTodosLength ?? 0}{" "}
+        todos completed
       </Text>
       <Spacer mb={4} />
       <Center>
@@ -67,7 +66,7 @@ const Completed = () => {
           })}
         </>
       )}
-      {completedTodos.length === 0 && (
+      {!isLoading && completedTodos.length === 0 && (
         <Text
           fontWeight={"normal"}
           fontStyle={"normal"}
@@ -76,7 +75,6 @@ const Completed = () => {
           No Currrent List
         </Text>
       )}
-      {isLoading && <Text>Loading...</Text>}
     </Template>
   );
 };

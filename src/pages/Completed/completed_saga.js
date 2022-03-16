@@ -35,6 +35,7 @@ function* getTodos() {
   } catch (error) {
     console.log(error);
     yield put(setError(error));
+    return yield put(setLoading(false));
   }
 }
 function* deleteTodo({ payload }) {
@@ -58,6 +59,7 @@ function* deleteTodo({ payload }) {
   } catch (error) {
     console.log(error);
     yield put(setError(error));
+    return yield put(setLoading(false));
   }
 }
 export default function* watcher() {
