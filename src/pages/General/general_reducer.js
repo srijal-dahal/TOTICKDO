@@ -2,6 +2,7 @@ import actionTypes from "./general_type";
 
 const initState = {
   isLoading: false,
+  isPostLoading: false,
   error: "",
   todos: [],
   message: "",
@@ -40,6 +41,11 @@ export default (state = initState, action) => {
       return {
         ...state,
         completedTodosLength: action.payload,
+      };
+    case actionTypes.TODO_POST_GENERAL_LOADING:
+      return {
+        ...state,
+        isPostLoading: action.payload,
       };
     default:
       return state;

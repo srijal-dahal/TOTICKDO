@@ -1,5 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { Divider, Text, Spacer, Center, Button } from "@chakra-ui/react";
+import {
+  Divider,
+  Text,
+  Spacer,
+  Center,
+  Button,
+  Skeleton,
+  useColorModeValue,
+  ScaleFade,
+} from "@chakra-ui/react";
 import { AssetInput, Image, List } from "_components";
 import Template from "../Template";
 import TodoSvg from "_assets/todos.png";
@@ -8,8 +17,13 @@ import { addTodo, updateTodo, getTodos, deleteTodo } from "./general_action";
 const General = () => {
   const [todo, setTodo] = useState("");
   const dispatch = useDispatch();
-  const { isLoading, todos, incompleteTodosLength, completedTodosLength } =
-    useSelector((state) => state.general);
+  const {
+    isLoading,
+    todos,
+    incompleteTodosLength,
+    isPostLoading,
+    completedTodosLength,
+  } = useSelector((state) => state.general);
   function clickHandler(todo) {
     dispatch(updateTodo(todo));
   }
@@ -43,6 +57,7 @@ const General = () => {
       submitHandler: deleteHandler,
     },
   ];
+  const skeletonColor = useColorModeValue("primary.50", "priamary.100");
   return (
     <Template padding={5} loading={isLoading}>
       <Text variant={"primaryHeading"}>{date ?? "Today"}</Text>
@@ -83,6 +98,7 @@ const General = () => {
             isChecked={todos[0].status}
             todoText={todos[0].name}
             todo={todos[0]}
+            offsetY={0}
             clickHandler={clickHandler}
             menuItem={menuItemOptions}
           />
@@ -100,6 +116,7 @@ const General = () => {
                   todo={todo}
                   isChecked={todo.status}
                   todoText={todo.name}
+                  offsetY={i * -20}
                   clickHandler={clickHandler}
                   menuItem={menuItemOptions}
                 />

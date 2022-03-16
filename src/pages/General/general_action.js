@@ -64,3 +64,9 @@ export const setCompletedTodosCount = (payload) => {
     payload: payload,
   };
 };
+export const setPostLoading = (payload) => {
+  return {
+    type: actionTypes.TODO_POST_GENERAL_LOADING,
+    payload: payload,
+  };
+}

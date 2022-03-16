@@ -59,6 +59,8 @@ const Completed = () => {
                 key={i}
                 todo={todo}
                 isChecked={todo.status}
+                offsetY={i * -20}
+
                 todoText={todo.name}
                 menuItem={menuItemOptions}
               />

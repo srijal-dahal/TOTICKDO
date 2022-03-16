@@ -5,13 +5,14 @@ import {
   setError,
   setMessage,
   setTodos,
+  setPostLoading,
   setIncompleteTodosCount,
   setCompletedTodosCount,
 } from "./general_action";
 import Api from "../../utils/service";
 function* addTodo({ payload }) {
   try {
-    yield put(setLoading(true));
+    yield put(setPostLoading(true));
 
     const { todo, status } = payload;
     const response = yield call(
@@ -34,14 +35,14 @@ function* addTodo({ payload }) {
         setIncompleteTodosCount(response.data.message.data.pendingTodosCount)
       );
       setMessage("Todo added successfully");
-      return yield put(setLoading(false));
+      return yield put(setPostLoading(false));
     }
     yield put(setError(response.data.message));
-    yield put(setLoading(false));
+    yield put(setPostLoading(false));
   } catch (error) {
     console.log(error);
     yield put(setError(error));
-    return yield put(setLoading(false));
+    return yield put(setPostLoading(false));
   }
 }
 function* updateTodo({ payload }) {
@@ -54,10 +55,14 @@ function* updateTodo({ payload }) {
     if (updatedTodos.data.success === true) {
       yield put(setTodos(updatedTodos.data.message.data.todos));
       yield put(
-        setCompletedTodosCount(updatedTodos.data.message.data.completedTodosCount)
+        setCompletedTodosCount(
+          updatedTodos.data.message.data.completedTodosCount
+        )
       );
       yield put(
-        setIncompleteTodosCount(updatedTodos.data.message.data.pendingTodosCount)
+        setIncompleteTodosCount(
+          updatedTodos.data.message.data.pendingTodosCount
+        )
       );
       yield put(setMessage("Todo updated successfully"));
       return;
@@ -103,7 +108,9 @@ function* deleteSingleTodo({ payload }) {
     if (deletedTodo.data.success === true) {
       yield put(setTodos(deletedTodo.data.message.data.todos));
       yield put(
-        setCompletedTodosCount(deletedTodo.data.message.data.completedTodosCount)
+        setCompletedTodosCount(
+          deletedTodo.data.message.data.completedTodosCount
+        )
       );
       yield put(
         setIncompleteTodosCount(deletedTodo.data.message.data.pendingTodosCount)
