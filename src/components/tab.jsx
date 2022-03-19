@@ -13,7 +13,7 @@ function Tab({ links }) {
       {links.map((link, index) => {
         return (
           <Box key={index} _focus={"none"}>
-            <Link as={ReactLink} to={link.path}>
+            <Link as={ReactLink} to={link.path} variant={"tabLink"}>
               {link.name}
             </Link>
           </Box>

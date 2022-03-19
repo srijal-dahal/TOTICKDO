@@ -53,6 +53,9 @@ const components = {
     },
   },
   Text: {
+    baseStyle: {
+      fontFamily: "Lato",
+    },
     variants: {
       primaryHeading: (props) => ({
         fontSize: "3xl",
@@ -110,15 +113,19 @@ const components = {
   Link: {
     baseStyle: {
       fontFamily: "Lato",
-      _hover: {
-        textDecoration: "none",
-        borderBottomWidth: 2,
-        borderBottomColor: "primary.200",
-        paddingBottom: "0.7rem",
-        zIndex: "1",
-      },
       _focus: "none",
     },
+    variants: {
+      tabLink:{
+        _hover: {
+          textDecoration: "none",
+          borderBottomWidth: 2,
+          borderBottomColor: "primary.200",
+          paddingBottom: "0.7rem",
+          zIndex: "1",
+        },
+      }
+    }
   },
   Divider: {
     baseStyle: (props) => ({

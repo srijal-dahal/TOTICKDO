@@ -1,6 +1,6 @@
 import Wrapper from "./Wrapper";
 import { Routes, Route } from "react-router-dom";
-import { General, About, Completed } from "_pages";
+import { General, Dev, Completed } from "_pages";
 import { ThemeToggle } from "_components/";
 import { hot } from "react-hot-loader/root";
 import "_presentation/font";
@@ -10,7 +10,7 @@ function App() {
       <ThemeToggle />
       <Routes>
         <Route path="/" element={<General />} />
-        <Route path="/about" element={<About />} />
+        <Route path="/dev" element={<Dev />} />
         <Route path="/completed" element={<Completed />} />
       </Routes>
     </Wrapper>
