@@ -29,6 +29,7 @@ const components = {
       fontFamily: "Lato",
       fontWeight: "light",
       _focus: "none",
+   
     },
     variants: {
       mutedButton: {
