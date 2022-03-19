@@ -6,8 +6,7 @@ import {
   Spacer,
 } from "@chakra-ui/react";
 import { Tab, Loading } from "_components";
-import {Link} from "react-router-dom";
-const Template = ({ children, loading, ...rest }) => {
+const Template = ({ children, loading, isTab,...rest }) => {
   const isUser = false;
   const authLinks = [
     {

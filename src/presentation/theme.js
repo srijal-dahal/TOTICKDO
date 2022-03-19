@@ -48,7 +48,7 @@ const components = {
         margin: "0px",
         padding: "0px",
         alignItems: "center",
-        _hover: "none"
+        _hover: "none",
       },
     },
   },
@@ -116,7 +116,7 @@ const components = {
       _focus: "none",
     },
     variants: {
-      tabLink:{
+      tabLink: {
         _hover: {
           textDecoration: "none",
           borderBottomWidth: 2,
@@ -124,14 +124,10 @@ const components = {
           paddingBottom: "0.7rem",
           zIndex: "1",
         },
-      }
-    }
+      },
+    },
   },
-  Spinner:{
-    baseStyle:{
-      
-    }
-  },
+
   Divider: {
     baseStyle: (props) => ({
       bg: mode("primary.200", "primary.200")(props),

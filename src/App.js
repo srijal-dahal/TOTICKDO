@@ -10,6 +10,7 @@ function App() {
     <Wrapper>
       <ThemeToggle />
       <Routes>
+        <Route path="/auth" element={<Auth/>} />
         <Route path="/" element={<General />} />
         <Route path="/dev" element={<Dev />} />
         <Route path="/completed" element={<Completed />} />
