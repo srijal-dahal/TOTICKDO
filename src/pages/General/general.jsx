@@ -5,9 +5,8 @@ import {
   Spacer,
   Center,
   Button,
-  Skeleton,
-  useColorModeValue,
-  ScaleFade,
+  Spinner,
+  useTheme
 } from "@chakra-ui/react";
 import { AssetInput, Image, List } from "_components";
 import Template from "../Template";
@@ -15,6 +14,7 @@ import TodoSvg from "_assets/todos.png";
 import { useSelector, useDispatch } from "react-redux";
 import { addTodo, updateTodo, getTodos, deleteTodo } from "./general_action";
 const General = () => {
+ 
   const [todo, setTodo] = useState("");
   const dispatch = useDispatch();
   const {
@@ -81,6 +81,7 @@ const General = () => {
             variant={"mutedButton"}
             size={"sm"}
             h={"1.5rem"}
+            isLoading={isPostLoading}
             onClick={submitHandler}
           >
             Add
@@ -123,6 +124,7 @@ const General = () => {
             })}
         </>
       )}
+    
       {!isLoading && todos.length === 0 && (
         <Text
           fontWeight={"normal"}

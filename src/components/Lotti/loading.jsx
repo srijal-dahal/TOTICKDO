@@ -1,7 +1,7 @@
 import { useColorMode } from "@chakra-ui/react";
 import { DarkModeLoading, LightModeLoading } from "_assets/lotti/index";
 import Lottie from "react-lottie";
-
+  
 const Loading = ({ height, width, ...props }) => {
   const { colorMode } = useColorMode();
   const defaultOptions = {

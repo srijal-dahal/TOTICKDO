@@ -46,7 +46,7 @@ const Dev = () => {
       justifyContent={"center"}
       alignItems={"center"}
     >
-      <FlexBox justifyContent="space-between" alignItems={"center"}>
+      <FlexBox justifyContent="space-between" alignItems={"center"} w={"90%"}>
         <Image src={Yuvraj} h={"250px"} w={"250px"} resizeMode={"contain"} />
         <FlexBox
           flexDirection={"column"}
@@ -97,7 +97,7 @@ const Dev = () => {
         <Text textAlign={"justify"}>
           Totickdo is a basic to-do web application created to learn about
           programming.It is created by using a MERN stack. If you want to
-          contact me now then you can do so by :
+          contact me then you can do so by :
         </Text>
         <VStack mt={3} alignItems={"flex-start"}>
           <HStack>

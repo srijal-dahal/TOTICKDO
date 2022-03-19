@@ -127,6 +127,11 @@ const components = {
       }
     }
   },
+  Spinner:{
+    baseStyle:{
+      
+    }
+  },
   Divider: {
     baseStyle: (props) => ({
       bg: mode("primary.200", "primary.200")(props),
