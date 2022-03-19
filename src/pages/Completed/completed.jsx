@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Divider, Text, Spacer, Center, Button } from "@chakra-ui/react";
-import { AssetInput, Image, List } from "_components";
+import { AssetInput, Image, List ,Alert} from "_components";
 import Template from "../Template";
 import TodoSvg from "_assets/todos.png";
 import { useSelector, useDispatch } from "react-redux";
@@ -43,14 +43,15 @@ const Completed = () => {
         fontSize={"0.7rem"}
         letterSpacing={1}
       >
-        {incompleteTodosLength ?? 0} pending and {completedTodosLength ?? 0} completed
+        {incompleteTodosLength ?? 0} pending and {completedTodosLength ?? 0}{" "}
+        completed
       </Text>
       <Spacer mb={4} />
       <Center>
         <Divider w={"90%"} />
       </Center>
       <Spacer mt={5} />
-      {completedTodos.length != 0 && !isLoading && (
+      {completedTodos.length !== 0 && !isLoading && (
         <>
           {completedTodos.map((todo, i) => {
             return (
@@ -59,7 +60,6 @@ const Completed = () => {
                 todo={todo}
                 isChecked={todo.status}
                 offsetY={i * -20}
-
                 todoText={todo.name}
                 menuItem={menuItemOptions}
               />
@@ -68,13 +68,7 @@ const Completed = () => {
         </>
       )}
       {!isLoading && completedTodos.length === 0 && (
-        <Text
-          fontWeight={"normal"}
-          fontStyle={"normal"}
-          color="secondary.muted"
-        >
-          No Currrent List
-        </Text>
+        <Alert type="info" message={"Try Adding Todos"} />
       )}
     </Template>
   );

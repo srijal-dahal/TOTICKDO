@@ -63,7 +63,7 @@ const Dev = () => {
             ml={"5px"}
             mb={"5px"}
           >
-            Website Developer
+            Website Developer<br/>Full Stack
           </Text>
 
           <HStack>

@@ -1,3 +1,4 @@
+import React from "react";
 import {
   Box,
   Flex as FlexBox,
@@ -5,13 +6,21 @@ import {
   Spacer,
 } from "@chakra-ui/react";
 import { Tab, Loading } from "_components";
+import {Link} from "react-router-dom";
 const Template = ({ children, loading, ...rest }) => {
+  const isUser = false;
+  const authLinks = [
+    {
+      name: "Auth",
+      path: "/",
+    },
+  ];
   const links = [
     { path: "/", name: "General" },
     { path: "/completed", name: "Completed" },
     { path: "/dev", name: "Dev" },
   ];
-
+  const validateLinks = isUser ? authLinks : links;
   return (
     <FlexBox
       dir="column"
@@ -28,7 +37,7 @@ const Template = ({ children, loading, ...rest }) => {
         boxShadow="lg"
         overflow="hidden"
       >
-        <Tab links={links} />
+        <Tab links={validateLinks} />
         <Box
           {...rest}
           h="100%"

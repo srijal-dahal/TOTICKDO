@@ -1,20 +1,11 @@
 import React, { useState, useEffect } from "react";
-import {
-  Divider,
-  Text,
-  Spacer,
-  Center,
-  Button,
-  Spinner,
-  useTheme
-} from "@chakra-ui/react";
-import { AssetInput, Image, List } from "_components";
+import { Divider, Text, Spacer, Center, Button } from "@chakra-ui/react";
+import { AssetInput, Image, List, Alert } from "_components";
 import Template from "../Template";
 import TodoSvg from "_assets/todos.png";
 import { useSelector, useDispatch } from "react-redux";
 import { addTodo, updateTodo, getTodos, deleteTodo } from "./general_action";
 const General = () => {
- 
   const [todo, setTodo] = useState("");
   const dispatch = useDispatch();
   const {
@@ -124,15 +115,9 @@ const General = () => {
             })}
         </>
       )}
-    
+
       {!isLoading && todos.length === 0 && (
-        <Text
-          fontWeight={"normal"}
-          fontStyle={"normal"}
-          color="secondary.muted"
-        >
-          No Currrent List
-        </Text>
+        <Alert type="info" message={"Try Adding Todos"} />
       )}
     </Template>
   );
