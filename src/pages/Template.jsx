@@ -6,7 +6,7 @@ import {
   Spacer,
 } from "@chakra-ui/react";
 import { Tab, Loading } from "_components";
-const Template = ({ children, loading, isTab,...rest }) => {
+const Template = ({ children, loading, isTab, ...rest }) => {
   const isUser = false;
   const authLinks = [
     {
@@ -48,7 +48,6 @@ const Template = ({ children, loading, isTab,...rest }) => {
             },
           }}
         >
-          {!loading && children}
           {loading && (
             <Box
               w="100%"
@@ -60,6 +59,7 @@ const Template = ({ children, loading, isTab,...rest }) => {
               <Loading height={300} width={300} />
             </Box>
           )}
+          {!loading && children}
 
           <Spacer mb={7} />
         </Box>

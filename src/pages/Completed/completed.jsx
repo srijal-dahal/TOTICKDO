@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Divider, Text, Spacer, Center, Button } from "@chakra-ui/react";
-import { AssetInput, Image, List ,Alert} from "_components";
+import { AssetInput, Image, List, Alert } from "_components";
 import Template from "../Template";
 import TodoSvg from "_assets/todos.png";
 import { useSelector, useDispatch } from "react-redux";
 import { getTodos, deleteTodo } from "./completed_action";
-
+import { deleteTodo as deleteGeneralTodo } from "../General/general_action";
 const Completed = () => {
   const dispatch = useDispatch();
   const {
@@ -20,6 +20,7 @@ const Completed = () => {
 
   function deleteHandler(todo) {
     dispatch(deleteTodo(todo));
+    dispatch(deleteGeneralTodo(todo));
   }
   useEffect(() => {
     dispatch(getTodos());
@@ -43,7 +44,7 @@ const Completed = () => {
         fontSize={"0.7rem"}
         letterSpacing={1}
       >
-        {incompleteTodosLength ?? 0} pending and {completedTodosLength ?? 0}{" "}
+        {incompleteTodosLength ?? 0} pending and {completedTodosLength ?? 0}
         completed
       </Text>
       <Spacer mb={4} />
@@ -68,7 +69,7 @@ const Completed = () => {
         </>
       )}
       {!isLoading && completedTodos.length === 0 && (
-        <Alert type="info" message={"Try Adding Todos"} />
+        <Alert type="info" message={"Try Completing Todos"} />
       )}
     </Template>
   );

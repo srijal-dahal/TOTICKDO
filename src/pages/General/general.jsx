@@ -98,21 +98,22 @@ const General = () => {
             <Divider w={"90%"} />
           </Center>
           <Spacer mt={4} />
-          {todos
-            .filter((todo) => todos[0] != todo)
-            .map((todo, i) => {
-              return (
-                <List
-                  key={i}
-                  todo={todo}
-                  isChecked={todo.status}
-                  todoText={todo.name}
-                  offsetY={i * -20}
-                  clickHandler={clickHandler}
-                  menuItem={menuItemOptions}
-                />
-              );
-            })}
+          {!isLoading &&
+            todos
+              .filter((todo) => todos[0] != todo)
+              .map((todo, i) => {
+                return (
+                  <List
+                    key={i}
+                    todo={todo}
+                    isChecked={todo.status}
+                    todoText={todo.name}
+                    offsetY={i * -20}
+                    clickHandler={clickHandler}
+                    menuItem={menuItemOptions}
+                  />
+                );
+              })}
         </>
       )}
 
