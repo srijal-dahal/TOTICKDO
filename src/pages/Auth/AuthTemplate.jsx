@@ -9,17 +9,17 @@ import SignUp from "./components/signup";
 import Login from "./components/login";
 import { FittedTab } from "_components";
 
-const tabs = [
-  {
-    name: "SignUp",
-    component: SignUp,
-  },
-  {
-    name: "Login",
-    component: Login,
-  },
-];
 const Auth = () => {
+  const tabs = [
+    {
+      name: "SignUp",
+      component: SignUp,
+    },
+    {
+      name: "Login",
+      component: Login,
+    },
+  ];
   return (
     <FlexBox
       dir="column"

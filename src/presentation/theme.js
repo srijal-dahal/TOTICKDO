@@ -84,6 +84,21 @@ const components = {
           },
         },
       },
+      customOutline:{
+        field: {
+          bg:"transparent",
+          boderLeftWidth: "0px",
+          borderRightWidth: "0px",
+          borderTopWidth: "0px",
+          borderBottomWidth: "2px",
+          color: "secondary.50",
+          borderRadius: "0px",
+          _focus: "none",
+          _placeholder: {
+            color: "secondary.50",
+          },
+        }
+      }
     },
   },
   Checkbox: {
