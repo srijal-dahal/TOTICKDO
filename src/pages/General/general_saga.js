@@ -80,10 +80,8 @@ function* getTodos() {
       Api.get,
       "todos/getTodos/user=6210bae75f3a886b654a9cc1"
     );
-    if (getTodos.data.success === true) {
-      if (getTodos.data.message.data.todos.length === 0) {
-        return yield put(setLoading(false));
-      }
+    if (getTodos.data.success === true && getTodos.data.message.data.todos.length != 0) {
+
       yield put(setTodos(getTodos.data.message.data.todos));
       yield put(
         setCompletedTodosCount(getTodos.data.message.data.completedTodosCount)
@@ -92,7 +90,6 @@ function* getTodos() {
         setIncompleteTodosCount(getTodos.data.message.data.pendingTodosCount)
       );
       setMessage("Todo added successfully");
-      return yield put(setLoading(false));
     }
     return yield put(setLoading(false));
   } catch (error) {

@@ -7,15 +7,20 @@ import {
   Button,
   Flex as FlexBox,
 } from "@chakra-ui/react";
-import { ViewIcon } from "@chakra-ui/icons";
+import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import { AssetInput } from "_components/";
 const SignUp = () => {
   const [show, setShow] = useState(false);
   function changeType() {
     setShow((isPrev) => !isPrev);
   }
+  const icon = show ? (
+    <ViewOffIcon ViewIcon cursor={"pointer"} onClick={changeType} />
+  ) : (
+    <ViewIcon cursor={"pointer"} onClick={changeType} />
+  );
   return (
-    <Box w={"100%"} h={"80%"} >
+    <Box w={"100%"} h={"80%"}>
       <FlexBox flexDirection="column" h={"100%"} justifyContent="space-between">
         <Box>
           <Text fontWeight={600} fontFamily="Lato" mb={2} fontSize={"xl"}>
@@ -34,7 +39,7 @@ const SignUp = () => {
           <AssetInput
             placeHolder={"Enter Your Password"}
             type={show ? "text" : "password"}
-            rightAsset={<ViewIcon cursor={"pointer"} onClick={changeType} />}
+            rightAsset={icon}
           />
         </Box>
         <Center flexDirection={"column"}>

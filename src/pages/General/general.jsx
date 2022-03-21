@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Divider, Text, Spacer, Center, Button } from "@chakra-ui/react";
-import { AssetInput, Image, List, Alert } from "_components";
+import { Spacer } from "@chakra-ui/react";
+import { Alert } from "_components";
 import Template from "../Template";
-import TodoSvg from "_assets/todos.png";
 import { useSelector, useDispatch } from "react-redux";
 import { addTodo, updateTodo, getTodos, deleteTodo } from "./general_action";
+import TodoList from "./components/list";
+import Header from "./components/header";
 const General = () => {
   const [todo, setTodo] = useState("");
   const dispatch = useDispatch();
@@ -50,73 +51,21 @@ const General = () => {
   ];
   return (
     <Template padding={5} loading={isLoading}>
-      <Text variant={"primaryHeading"}>{date ?? "Today"}</Text>
-      <Text
-        color="primary.200"
-        fontFamily="Lato"
-        fontWeight={"light"}
-        fontSize={"0.7rem"}
-        letterSpacing={1}
-      >
-        {incompleteTodosLength ?? 0} pending and {completedTodosLength ?? 0}{" "}
-        completed
-      </Text>
-      <Spacer mt={5} />
-      <AssetInput
-        value={todo}
-        leftAsset={
-          <Image src={TodoSvg} h={"20px"} w={"20px"} resizeMode={"contain"} />
-        }
-        rightAsset={
-          <Button
-            variant={"mutedButton"}
-            size={"sm"}
-            h={"1.5rem"}
-            isLoading={isPostLoading}
-            onClick={submitHandler}
-          >
-            Add
-          </Button>
-        }
-        changeHandler={onChangeHandler}
-        placeHolder={"Add Todos"}
-        variant={"primaryInput"}
+      <Header
+        completedTodosLength={completedTodosLength}
+        incompleteTodosLength={incompleteTodosLength}
+        isPostLoading={isPostLoading}
+        submitHandler={submitHandler}
+        onChangeHandler={onChangeHandler}
+        todo={todo}
+        date={date}
       />
       <Spacer mt={5} />
-      {todos.length != 0 && !isLoading && (
-        <>
-          <List
-            isChecked={todos[0].status}
-            todoText={todos[0].name}
-            todo={todos[0]}
-            offsetY={0}
-            clickHandler={clickHandler}
-            menuItem={menuItemOptions}
-          />
-          <Spacer mb={4} />
-          <Center>
-            <Divider w={"90%"} />
-          </Center>
-          <Spacer mt={4} />
-          {!isLoading &&
-            todos
-              .filter((todo) => todos[0] != todo)
-              .map((todo, i) => {
-                return (
-                  <List
-                    key={i}
-                    todo={todo}
-                    isChecked={todo.status}
-                    todoText={todo.name}
-                    offsetY={i * -20}
-                    clickHandler={clickHandler}
-                    menuItem={menuItemOptions}
-                  />
-                );
-              })}
-        </>
-      )}
-
+      <TodoList
+        todos={todos}
+        menuItemOptions={menuItemOptions}
+        clickHandler={clickHandler}
+      />
       {!isLoading && todos.length === 0 && (
         <Alert type="info" message={"Try Adding Todos"} />
       )}

@@ -6,6 +6,8 @@ import TodoSvg from "_assets/todos.png";
 import { useSelector, useDispatch } from "react-redux";
 import { getTodos, deleteTodo } from "./completed_action";
 import { deleteTodo as deleteGeneralTodo } from "../General/general_action";
+import CompletedHeader from "./components/completed_header";
+import CompletedList from "./components/completed_list";
 const Completed = () => {
   const dispatch = useDispatch();
   const {
@@ -34,40 +36,18 @@ const Completed = () => {
   ];
   return (
     <Template padding={5} loading={isLoading}>
-      <Text variant={"primaryHeading"}>
-        {completedTodosLength ?? 0} Completed Todos
-      </Text>
-      <Text
-        color="primary.200"
-        fontFamily="Lato"
-        fontWeight={"light"}
-        fontSize={"0.7rem"}
-        letterSpacing={1}
-      >
-        {incompleteTodosLength ?? 0} pending and {completedTodosLength ?? 0}
-        completed
-      </Text>
-      <Spacer mb={4} />
+      <CompletedHeader
+        incompleteTodosLength={incompleteTodosLength}
+        completedTodosLength={completedTodosLength}
+      />
       <Center>
         <Divider w={"90%"} />
       </Center>
       <Spacer mt={5} />
-      {completedTodos.length !== 0 && !isLoading && (
-        <>
-          {completedTodos.map((todo, i) => {
-            return (
-              <List
-                key={i}
-                todo={todo}
-                isChecked={todo.status}
-                offsetY={i * -20}
-                todoText={todo.name}
-                menuItem={menuItemOptions}
-              />
-            );
-          })}
-        </>
-      )}
+      <CompletedList
+        completedTodos={completedTodos}
+        menuItemOptions={menuItemOptions}
+      />
       {!isLoading && completedTodos.length === 0 && (
         <Alert type="info" message={"Try Completing Todos"} />
       )}
