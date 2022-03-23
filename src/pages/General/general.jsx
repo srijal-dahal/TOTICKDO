@@ -61,11 +61,13 @@ const General = () => {
         date={date}
       />
       <Spacer mt={5} />
-      <TodoList
-        todos={todos}
-        menuItemOptions={menuItemOptions}
-        clickHandler={clickHandler}
-      />
+      {todos.length != 0 && (
+        <TodoList
+          todos={todos}
+          menuItemOptions={menuItemOptions}
+          clickHandler={clickHandler}
+        />
+      )}
       {!isLoading && todos.length === 0 && (
         <Alert type="info" message={"Try Adding Todos"} />
       )}
