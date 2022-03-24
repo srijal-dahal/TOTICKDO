@@ -15,7 +15,7 @@ const Template = ({ children, loading, isTab, ...rest }) => {
     },
   ];
   const links = [
-    { path: "/", name: "General" },
+    { path: "/general", name: "General" },
     { path: "/completed", name: "Completed" },
     { path: "/dev", name: "Dev" },
   ];

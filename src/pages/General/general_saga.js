@@ -10,19 +10,19 @@ import {
   setCompletedTodosCount,
 } from "./general_action";
 import Api from "../../utils/service";
+import { getLocalStorage } from "_utils/global_function";
+const user = getLocalStorage("user");
 function* addTodo({ payload }) {
   try {
     yield put(setPostLoading(true));
 
     const { todo, status } = payload;
-    const response = yield call(
-      Api.post,
-      "/todos/create/user=6210bae75f3a886b654a9cc1",
-      {
-        name: todo,
-        status: status,
-      }
-    );
+    const user = getLocalStorage("user");
+    const uid = user.uid;
+    const response = yield call(Api.post, `/todos/create/user=${uid}`, {
+      name: todo,
+      status: status,
+    });
     if (
       response.data.success === true &&
       response.data.message.data.todos.length != 0
@@ -40,7 +40,7 @@ function* addTodo({ payload }) {
     yield put(setError(response.data.message));
     yield put(setPostLoading(false));
   } catch (error) {
-    console.log(error);
+    console.log(error.response);
     yield put(setError(error));
     return yield put(setPostLoading(false));
   }
@@ -49,9 +49,15 @@ function* updateTodo({ payload }) {
   try {
     const { _id, status } = payload;
     const toggledStatus = !status ?? false;
-    const updatedTodos = yield call(Api.put, `/todos/update/${_id}`, {
-      status: toggledStatus,
-    });
+    const user = getLocalStorage("user");
+    const uid = user.uid;
+    const updatedTodos = yield call(
+      Api.put,
+      `/todos/update/${_id}/user=${uid}`,
+      {
+        status: toggledStatus,
+      }
+    );
     if (updatedTodos.data.success === true) {
       yield put(setTodos(updatedTodos.data.message.data.todos));
       yield put(
@@ -76,12 +82,13 @@ function* updateTodo({ payload }) {
 function* getTodos() {
   try {
     yield put(setLoading(true));
-    const getTodos = yield call(
-      Api.get,
-      "todos/getTodos/user=6210bae75f3a886b654a9cc1"
-    );
-    if (getTodos.data.success === true && getTodos.data.message.data.todos.length != 0) {
-
+    const user = getLocalStorage("user");
+    const uid = user.uid;
+    const getTodos = yield call(Api.get, `todos/getTodos/user=${uid}`);
+    if (
+      getTodos.data.success === true &&
+      getTodos.data.message.data.todos.length != 0
+    ) {
       yield put(setTodos(getTodos.data.message.data.todos));
       yield put(
         setCompletedTodosCount(getTodos.data.message.data.completedTodosCount)
@@ -101,7 +108,12 @@ function* getTodos() {
 function* deleteSingleTodo({ payload }) {
   try {
     const { _id } = payload;
-    const deletedTodo = yield call(Api.delete, `/todos/delete/${_id}`);
+    const user = getLocalStorage("user");
+    const uid = user.uid;
+    const deletedTodo = yield call(
+      Api.delete,
+      `/todos/delete/${_id}/user=${uid}`
+    );
     if (deletedTodo.data.success === true) {
       yield put(setTodos(deletedTodo.data.message.data.todos));
       yield put(

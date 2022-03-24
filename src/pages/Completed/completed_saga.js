@@ -9,14 +9,14 @@ import {
   setIncompleteTodosCount,
 } from "./completed_action";
 import Api from "../../utils/service";
-
+import { getLocalStorage } from "_utils/global_function";
 function* getTodos() {
   try {
     yield put(setLoading(true));
-    const getTodos = yield call(
-      Api.get,
-      "todos/completed-todos/user=6210bae75f3a886b654a9cc1"
-    );
+    const user = getLocalStorage("user");
+
+    const uid = user.uid;
+    const getTodos = yield call(Api.get, `todos/completed-todos/user=${uid}`);
     if (
       getTodos.data.success === true &&
       getTodos.data.message.data.length != 0
@@ -40,7 +40,9 @@ function* getTodos() {
 function* deleteTodo({ payload }) {
   try {
     const { _id } = payload;
-    const todos = yield call(Api.delete, `/todos/delete/${_id}`);
+    const user = getLocalStorage("user");
+    const uid = user.uid;
+    const todos = yield call(Api.delete, `/todos/delete/${_id}/user=${uid}`);
     if (todos.data.success === true) {
       const filteredTodosComplete = todos.data.message.data.todos.filter(
         (todo) => todo.status === true

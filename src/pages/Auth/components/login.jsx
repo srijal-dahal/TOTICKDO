@@ -11,6 +11,7 @@ import { ViewIcon } from "@chakra-ui/icons";
 import { AssetInput } from "_components/";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../auth_action";
+import { useNavigate, useLocation } from "react-router-dom";
 const Login = () => {
   const [show, setShow] = useState(false);
   const [formValue, setFormValue] = useState({
@@ -19,6 +20,7 @@ const Login = () => {
     fullName: "",
   });
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   function changeType() {
     setShow((isPrev) => !isPrev);
   }
@@ -36,7 +38,7 @@ const Login = () => {
   }
   function submitHandler() {
     const { email, password, fullName } = formValue;
-    dispatch(loginUser({ email, password, fullName }));
+    dispatch(loginUser({ email, password, fullName, navigate }));
   }
   return (
     <Box w={"100%"} h={"90%"}>

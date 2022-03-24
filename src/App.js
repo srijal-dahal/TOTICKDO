@@ -1,21 +1,45 @@
 import Wrapper from "./Wrapper";
 import { Routes, Route } from "react-router-dom";
 import { General, Dev, Completed, Auth } from "_pages";
+import { BrowserRouter } from "react-router-dom";
 import { ThemeToggle } from "_components/";
 import { hot } from "react-hot-loader/root";
-import Template from "src/pages/Template";
+import ProtectedRoutes from "_presentation/authRoutes";
 import "_presentation/font";
 function App() {
   return (
-    <Wrapper>
-      <ThemeToggle />
-      <Routes>
-        <Route path="/auth" element={<Auth/>} />
-        <Route path="/" element={<General />} />
-        <Route path="/dev" element={<Dev />} />
-        <Route path="/completed" element={<Completed />} />
-      </Routes>
-    </Wrapper>
+    <BrowserRouter>
+      <Wrapper>
+        <ThemeToggle />
+        <Routes>
+          <Route path="/" element={<Auth />} />
+          <Route
+            path="/general"
+            element={
+              <ProtectedRoutes>
+                <General />
+              </ProtectedRoutes>
+            }
+          />
+          <Route
+            path="/dev"
+            element={
+              <ProtectedRoutes>
+                <Dev />
+              </ProtectedRoutes>
+            }
+          />
+          <Route
+            path="/completed"
+            element={
+              <ProtectedRoutes>
+                <Completed />
+              </ProtectedRoutes>
+            }
+          />
+        </Routes>
+      </Wrapper>
+    </BrowserRouter>
   );
 }
 

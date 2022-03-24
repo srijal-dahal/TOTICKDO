@@ -8,9 +8,11 @@ import {
   Flex as FlexBox,
 } from "@chakra-ui/react";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
-import {useSelector,useDispatch} from "react-redux";
-import {signupUser} from "../auth_action";
+import { useSelector, useDispatch } from "react-redux";
+import { signupUser } from "../auth_action";
 import { AssetInput } from "_components/";
+import { useNavigate, useLocation } from "react-router-dom";
+import { useCookies } from "react-cookie";
 const SignUp = () => {
   const [show, setShow] = useState(false);
   const [formValue, setFormValue] = useState({
@@ -18,7 +20,9 @@ const SignUp = () => {
     password: "",
     fullName: "",
   });
-  const dispatch=useDispatch();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   function changeType() {
     setShow((isPrev) => !isPrev);
   }
@@ -27,7 +31,7 @@ const SignUp = () => {
   ) : (
     <ViewIcon cursor={"pointer"} onClick={changeType} />
   );
- 
+
   function nameChangeHandler(e) {
     setFormValue({
       ...formValue,
@@ -46,9 +50,9 @@ const SignUp = () => {
       password: e.target.value,
     });
   }
-  function submitHandler(){
-    const {email,password,fullName}=formValue;
-    dispatch(signupUser({email,password,fullName}));
+  function submitHandler() {
+    const { email, password, fullName } = formValue;
+    dispatch(signupUser({ email, password, fullName, navigate }));
   }
   return (
     <Box w={"100%"} h={"80%"}>
