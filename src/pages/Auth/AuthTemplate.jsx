@@ -1,3 +1,4 @@
+import { useState ,useEffect} from "react";
 import {
   Text,
   Flex as FlexBox,
@@ -10,16 +11,26 @@ import Login from "./components/login";
 import { FittedTab } from "_components";
 
 const Auth = () => {
+  const [tabIndex, setTabIndex] = useState(0);
+  function setIndex(index) {
+    setTabIndex(index);
+  }
+  function changeTabIndex() {
+    setTabIndex(tabIndex === 0 ? 1 : 0);
+  }
   const tabs = [
     {
       name: "SignUp",
       component: SignUp,
+      changeIndex: changeTabIndex,
     },
     {
       name: "Login",
       component: Login,
+      changeIndex: changeTabIndex,
     },
   ];
+ 
   return (
     <FlexBox
       dir="column"
@@ -36,7 +47,7 @@ const Auth = () => {
         boxShadow="lg"
         overflow="hidden"
       >
-        <FittedTab tabs={tabs} />
+        <FittedTab tabs={tabs} tabIndex={tabIndex} setIndex={setIndex} />
       </Box>
     </FlexBox>
   );

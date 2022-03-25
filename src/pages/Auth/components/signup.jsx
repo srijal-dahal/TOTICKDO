@@ -13,7 +13,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { signupUser,setSignupError } from "../auth_action";
 import { AssetInput, Toast } from "_components/";
 import { useNavigate } from "react-router-dom";
-const SignUp = () => {
+const SignUp = ({changeIndexHandler}) => {
   const [show, setShow] = useState(false);
   const [formValue, setFormValue] = useState({
     email: "",
@@ -117,6 +117,8 @@ const SignUp = () => {
             fontFamily="Lato"
             fontSize={"md"}
             color={"secondary.50"}
+            onClick={changeIndexHandler}
+            cursor={"pointer"}
           >
             I'm already a member
           </Text>

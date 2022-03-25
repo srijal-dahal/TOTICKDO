@@ -26,41 +26,23 @@ const ThemeToggle = () => {
           `${colors.primary[50]}`
         )}
       />
-      {colorMode === "light" ? (
-        <Box
-          height="50px"
-          width="50px"
-          pos={"absolute"}
-          right={"-1.53rem"}
-          top={"3rem"}
-        >
-          <Image
-            src={MoonSvg}
-            alt={"moon"}
-            onClick={toggleColorMode}
-            zIndex={5}
-            height={"100%"}
-            width={"100%"}
-          />
-        </Box>
-      ) : (
-        <Box
-          height="50px"
-          width="50px"
-          pos={"absolute"}
-          right={"-1.53rem"}
-          top={"3.7rem"}
-        >
-          <Image
-            src={SunSvg}
-            alt={"sun"}
-            onClick={toggleColorMode}
-            zIndex={5}
-            height={"100%"}
-            width={"100%"}
-          />
-        </Box>
-      )}
+      <Box
+        height="50px"
+        width="50px"
+        pos={"absolute"}
+        right={"-1.53rem"}
+        top={colorMode === "light" ? "3rem" : "3.7rem"}
+        cursor={"pointer"}
+      >
+        <Image
+          src={colorMode === "light" ? MoonSvg : SunSvg}
+          alt={colorMode === "light" ? "moon" : "sun"}
+          onClick={toggleColorMode}
+          zIndex={5}
+          height={"100%"}
+          width={"100%"}
+        />
+      </Box>
     </Box>
   );
 };

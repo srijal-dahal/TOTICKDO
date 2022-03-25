@@ -13,7 +13,7 @@ import { AssetInput, Toast } from "_components/";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser, setLoginError } from "../auth_action";
 import { useNavigate } from "react-router-dom";
-const Login = () => {
+const Login = ({changeIndexHandler}) => {
   const [show, setShow] = useState(false);
   const toast = useToast();
   const [formValue, setFormValue] = useState({
@@ -100,6 +100,8 @@ const Login = () => {
             fontFamily="Lato"
             fontSize={"md"}
             color={"secondary.50"}
+            onClick={changeIndexHandler}
+            cursor={"pointer"}
           >
             I'm a new member
           </Text>

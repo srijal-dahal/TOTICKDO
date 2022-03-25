@@ -7,10 +7,17 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 
-const FittedTab = ({ tabs }) => {
+const FittedTab = ({ tabs, tabIndex, setIndex }) => {
   const bg = useColorModeValue("primary.200", "primary.200");
   return (
-    <Tabs isFitted variant="enclosed" w={"100%"} h={"100%"}>
+    <Tabs
+      isFitted
+      variant="enclosed"
+      w={"100%"}
+      h={"100%"}
+      index={tabIndex}
+      onChange={setIndex}
+    >
       <TabList mb="1em">
         {tabs.map((tab, index) => {
           return (
@@ -33,7 +40,7 @@ const FittedTab = ({ tabs }) => {
         {tabs.map((tab, index) => {
           return (
             <TabPanel key={index} w={"100%"} h={"100%"}>
-              <tab.component />
+              <tab.component changeIndexHandler={tab.changeIndex} />
             </TabPanel>
           );
         })}
