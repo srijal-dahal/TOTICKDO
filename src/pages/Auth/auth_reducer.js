@@ -1,8 +1,8 @@
 import actionTypes from "./auth_type";
 const initState = {
-  signupError: null,
+  signupError: "",
   signupLoading: false,
-  loginError: null,
+  loginError: "",
   loginLoading: false,
 };
 
@@ -28,6 +28,17 @@ export default (state = initState, action) => {
         ...state,
         loginError: action.payload,
       };
+    case actionTypes.SIGNUP_ERROR:
+      return {
+        ...state,
+        signupError: action.payload,
+      };
+    case actionTypes.LOGIN_ERROR:
+      return {
+        ...state,
+        loginError: action.payload,
+      };
+
     default:
       return { ...state };
   }

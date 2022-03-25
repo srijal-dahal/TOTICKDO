@@ -10,7 +10,7 @@ import {
 } from "@chakra-ui/react";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import { useSelector, useDispatch } from "react-redux";
-import { signupUser } from "../auth_action";
+import { signupUser,setSignupError } from "../auth_action";
 import { AssetInput, Toast } from "_components/";
 import { useNavigate } from "react-router-dom";
 const SignUp = () => {
@@ -33,8 +33,9 @@ const SignUp = () => {
     <ViewIcon cursor={"pointer"} onClick={changeType} />
   );
   useEffect(() => {
-    if (signupError) {
+    if (signupError != "") {
       Toast(toast, signupError, "error");
+      dispatch(setSignupError(""))
     }
   }, [signupError]);
   function nameChangeHandler(e) {

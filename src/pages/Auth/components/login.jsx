@@ -1,35 +1,36 @@
-import { useState, useEffect } from "react";
+import { useState,useEffect } from "react";
 import {
   Text,
   Box,
   Spacer,
   Center,
-  Button,
   useToast,
+  Button,
   Flex as FlexBox,
 } from "@chakra-ui/react";
 import { ViewIcon } from "@chakra-ui/icons";
-import { AssetInput, Toast } from "_components/";
+import { AssetInput ,Toast} from "_components/";
 import { useDispatch, useSelector } from "react-redux";
-import { loginUser } from "../auth_action";
+import { loginUser ,setLoginError} from "../auth_action";
 import { useNavigate } from "react-router-dom";
 const Login = () => {
   const [show, setShow] = useState(false);
+  const toast = useToast();
   const [formValue, setFormValue] = useState({
     email: "",
     password: "",
     fullName: "",
   });
-  const { loginLoading, loginError } = useSelector((state) => state.auth);
+  const { loginLoading,loginError } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const toast = useToast();
   function changeType() {
     setShow((isPrev) => !isPrev);
   }
-  useEffect(() => {
-    if (loginError) {
+    useEffect(() => {
+    if (loginError!="") {
       Toast(toast, loginError, "error");
+      dispatch(setLoginError(""))
     }
   }, [loginError]);
   function emailChangeHandler(e) {
