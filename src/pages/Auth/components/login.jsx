@@ -1,4 +1,4 @@
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import {
   Text,
   Box,
@@ -8,10 +8,10 @@ import {
   Button,
   Flex as FlexBox,
 } from "@chakra-ui/react";
-import { ViewIcon } from "@chakra-ui/icons";
-import { AssetInput ,Toast} from "_components/";
+import { ViewIcon,ViewOffIcon } from "@chakra-ui/icons";
+import { AssetInput, Toast } from "_components/";
 import { useDispatch, useSelector } from "react-redux";
-import { loginUser ,setLoginError} from "../auth_action";
+import { loginUser, setLoginError } from "../auth_action";
 import { useNavigate } from "react-router-dom";
 const Login = () => {
   const [show, setShow] = useState(false);
@@ -21,16 +21,16 @@ const Login = () => {
     password: "",
     fullName: "",
   });
-  const { loginLoading,loginError } = useSelector((state) => state.auth);
+  const { loginLoading, loginError } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   function changeType() {
     setShow((isPrev) => !isPrev);
   }
-    useEffect(() => {
-    if (loginError!="") {
+  useEffect(() => {
+    if (loginError != "") {
       Toast(toast, loginError, "error");
-      dispatch(setLoginError(""))
+      dispatch(setLoginError(""));
     }
   }, [loginError]);
   function emailChangeHandler(e) {
@@ -49,6 +49,11 @@ const Login = () => {
     const { email, password, fullName } = formValue;
     dispatch(loginUser({ email, password, fullName, navigate }));
   }
+  const icon = show ? (
+    <ViewOffIcon ViewIcon cursor={"pointer"} onClick={changeType} />
+  ) : (
+    <ViewIcon cursor={"pointer"} onClick={changeType} />
+  );
   return (
     <Box w={"100%"} h={"90%"}>
       <FlexBox flexDirection="column" h={"100%"} justifyContent="space-around">
@@ -71,7 +76,7 @@ const Login = () => {
             type={show ? "text" : "password"}
             variant={"customOutline"}
             min={8}
-            rightAsset={<ViewIcon cursor={"pointer"} onClick={changeType} />}
+            rightAsset={icon}
             changeHandler={passwordChangeHandler}
           />
         </Box>
