@@ -1,17 +1,18 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Text,
   Box,
   Spacer,
   Center,
   Button,
+  useToast,
   Flex as FlexBox,
 } from "@chakra-ui/react";
 import { ViewIcon } from "@chakra-ui/icons";
-import { AssetInput } from "_components/";
+import { AssetInput, Toast } from "_components/";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../auth_action";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 const Login = () => {
   const [show, setShow] = useState(false);
   const [formValue, setFormValue] = useState({
@@ -19,11 +20,18 @@ const Login = () => {
     password: "",
     fullName: "",
   });
+  const { loginLoading, loginError } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const toast = useToast();
   function changeType() {
     setShow((isPrev) => !isPrev);
   }
+  useEffect(() => {
+    if (loginError) {
+      Toast(toast, loginError, "error");
+    }
+  }, [loginError]);
   function emailChangeHandler(e) {
     setFormValue({
       ...formValue,
@@ -61,6 +69,7 @@ const Login = () => {
             placeHolder={"Enter Your Password"}
             type={show ? "text" : "password"}
             variant={"customOutline"}
+            min={8}
             rightAsset={<ViewIcon cursor={"pointer"} onClick={changeType} />}
             changeHandler={passwordChangeHandler}
           />
@@ -71,6 +80,7 @@ const Login = () => {
             h={"50px"}
             bg={"primary.200"}
             color={"primary.50"}
+            isLoading={loginLoading}
             _focus={"none"}
             onClick={submitHandler}
             _active={"none"}

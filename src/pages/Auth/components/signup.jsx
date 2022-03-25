@@ -1,18 +1,18 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Text,
   Box,
   Spacer,
   Center,
   Button,
+  useToast,
   Flex as FlexBox,
 } from "@chakra-ui/react";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import { useSelector, useDispatch } from "react-redux";
 import { signupUser } from "../auth_action";
-import { AssetInput } from "_components/";
-import { useNavigate, useLocation } from "react-router-dom";
-import { useCookies } from "react-cookie";
+import { AssetInput, Toast } from "_components/";
+import { useNavigate } from "react-router-dom";
 const SignUp = () => {
   const [show, setShow] = useState(false);
   const [formValue, setFormValue] = useState({
@@ -22,7 +22,8 @@ const SignUp = () => {
   });
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  const { signupLoading, signupError } = useSelector((state) => state.auth);
+  const toast = useToast();
   function changeType() {
     setShow((isPrev) => !isPrev);
   }
@@ -31,7 +32,11 @@ const SignUp = () => {
   ) : (
     <ViewIcon cursor={"pointer"} onClick={changeType} />
   );
-
+  useEffect(() => {
+    if (signupError) {
+      Toast(toast, signupError, "error");
+    }
+  }, [signupError]);
   function nameChangeHandler(e) {
     setFormValue({
       ...formValue,
@@ -86,6 +91,7 @@ const SignUp = () => {
             type={show ? "text" : "password"}
             rightAsset={icon}
             variant={"customOutline"}
+            required
             changeHandler={passwordChangeHandler}
           />
         </Box>
@@ -95,6 +101,8 @@ const SignUp = () => {
             h={"50px"}
             bg={"primary.200"}
             color={"primary.50"}
+            isLoading={signupLoading}
+            required
             _focus={"none"}
             onClick={submitHandler}
             _active={"none"}

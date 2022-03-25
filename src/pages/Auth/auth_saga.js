@@ -1,6 +1,11 @@
 import { call, put, takeEvery } from "redux-saga/effects";
 import actionTypes from "./auth_type";
-import { setSignupLoading, setLoginLoading } from "./auth_action";
+import {
+  setSignupLoading,
+  setLoginLoading,
+  setLoginError,
+  setSignupError,
+} from "./auth_action";
 import Api from "../../utils/service";
 import { setLocalStorage } from "_utils/global_function";
 
@@ -15,12 +20,14 @@ function* signupUser({ payload }) {
     });
     if (response.data.success === true) {
       const data = response.data.message;
-        setLocalStorage("user", data, 1000 * 7 * 24 * 60 * 60);
-        navigate("/general");
+      setLocalStorage("user", data, 1000 * 7 * 24 * 60 * 60);
+      navigate("/general");
     }
     yield put(setSignupLoading(false));
   } catch (error) {
-    console.log(error);
+    console.log(error.response.data.message);
+    yield put(setSignupLoading(false));
+    yield put(setSignupError(error.response.data.message));
   }
 }
 function* loginUser({ payload }) {
@@ -38,7 +45,9 @@ function* loginUser({ payload }) {
     }
     yield put(setLoginLoading(false));
   } catch (error) {
-    console.log(error);
+    console.log(error.response.data);
+    yield put(setLoginError(error.response.data.message));
+    yield put(setLoginLoading(false));
   }
 }
 export default function* watcher() {
