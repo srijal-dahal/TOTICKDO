@@ -45,7 +45,7 @@ function* loginUser({ payload }) {
     }
     yield put(setLoginLoading(false));
   } catch (error) {
-    console.log(error.response.data);
+    console.log(error.response.data.message);
     yield put(setLoginError(error.response.data.message));
     yield put(setLoginLoading(false));
   }
