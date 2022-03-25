@@ -8,18 +8,12 @@ import {
 import { Tab, Loading } from "_components";
 const Template = ({ children, loading, isTab, ...rest }) => {
   const isUser = false;
-  const authLinks = [
-    {
-      name: "Auth",
-      path: "/",
-    },
-  ];
+ 
   const links = [
     { path: "/general", name: "General" },
     { path: "/completed", name: "Completed" },
     { path: "/dev", name: "Dev" },
   ];
-  const validateLinks = isUser ? authLinks : links;
   return (
     <FlexBox
       dir="column"
@@ -36,7 +30,7 @@ const Template = ({ children, loading, isTab, ...rest }) => {
         boxShadow="lg"
         overflow="hidden"
       >
-        <Tab links={validateLinks} />
+        <Tab links={links} />
         <Box
           {...rest}
           h="100%"
