@@ -146,7 +146,7 @@ const components = {
 
   Divider: {
     baseStyle: (props) => ({
-      bg: mode("primary.200", "primary.200")(props),
+      bg:"primary.200",
     }),
   },
 };
