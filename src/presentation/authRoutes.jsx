@@ -1,10 +1,8 @@
-import { useEffect } from "react";
-import { Navigate, useLocation, useNavigate } from "react-router-dom";
-import { getLocalStorage } from "../utils/global_function";
+import { Navigate, useLocation } from "react-router-dom";
 const ProtectedRoute = ({ children }) => {
-  const user = getLocalStorage("user");
   const location = useLocation();
-  const isAuthenticated = user !== null ? true : false;
+  const isUser = document.cookie.includes("authorization");
+  const isAuthenticated = isUser !== null && isUser ? true : false;
   if (!isAuthenticated) {
     return <Navigate to="/" replace state={{ from: location }} />;
   }

@@ -13,6 +13,10 @@ function* signupUser({ payload }) {
   try {
     yield put(setSignupLoading(true));
     const { email, password, fullName, navigate } = payload;
+    if (!email || !password || !fullName) {
+      yield put(setSignupError("Please Try Again"));
+      yield put(setSignupLoading(false));
+    }
     const response = yield call(Api.post, "/auth/register", {
       email: email,
       password: password,

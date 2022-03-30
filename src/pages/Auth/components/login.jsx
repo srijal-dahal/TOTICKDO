@@ -8,19 +8,23 @@ import {
   Button,
   Flex as FlexBox,
 } from "@chakra-ui/react";
-import { ViewIcon,ViewOffIcon } from "@chakra-ui/icons";
-import { AssetInput, Toast } from "_components/";
+import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
+import { FormAssetInput, FormInput, Toast } from "_components/";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser, setLoginError } from "../auth_action";
 import { useNavigate } from "react-router-dom";
-const Login = ({changeIndexHandler}) => {
+import * as Yup from "yup";
+import { Formik, Form } from "formik";
+const validationSchema = Yup.object().shape({
+  email: Yup.string().email("Invalid Emaiil").required("Email is required"),
+  password: Yup.string()
+    .min(8, "Password must be at least 8 characters")
+    .required("Password is required"),
+});
+const Login = ({ changeIndexHandler }) => {
   const [show, setShow] = useState(false);
   const toast = useToast();
-  const [formValue, setFormValue] = useState({
-    email: "",
-    password: "",
-    fullName: "",
-  });
+ 
   const { loginLoading, loginError } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -33,21 +37,10 @@ const Login = ({changeIndexHandler}) => {
       dispatch(setLoginError(""));
     }
   }, [loginError]);
-  function emailChangeHandler(e) {
-    setFormValue({
-      ...formValue,
-      email: e.target.value,
-    });
-  }
-  function passwordChangeHandler(e) {
-    setFormValue({
-      ...formValue,
-      password: e.target.value,
-    });
-  }
-  function submitHandler() {
-    const { email, password, fullName } = formValue;
-    dispatch(loginUser({ email, password, fullName, navigate }));
+ 
+  function submitHandler(values) {
+    const { email, password } = values;
+    dispatch(loginUser({ email, password, navigate }));
   }
   const icon = show ? (
     <ViewOffIcon ViewIcon cursor={"pointer"} onClick={changeType} />
@@ -56,57 +49,85 @@ const Login = ({changeIndexHandler}) => {
   );
   return (
     <Box w={"100%"} h={"90%"}>
-      <FlexBox flexDirection="column" h={"100%"} justifyContent="space-around">
-        <Box>
-          <Text fontWeight={600} fontFamily="Lato" mb={2} fontSize={"xl"}>
-            Email
-          </Text>
-          <AssetInput
-            placeHolder={"Enter Your Email"}
-            type={"email"}
-            changeHandler={emailChangeHandler}
-            variant={"customOutline"}
-          />
-          <Spacer mt={4} />
-          <Text fontWeight={600} fontFamily="Lato" mb={2} fontSize={"xl"}>
-            Password
-          </Text>
-          <AssetInput
-            placeHolder={"Enter Your Password"}
-            type={show ? "text" : "password"}
-            variant={"customOutline"}
-            min={8}
-            rightAsset={icon}
-            changeHandler={passwordChangeHandler}
-          />
-        </Box>
-        <Center flexDirection={"column"}>
-          <Button
-            w={"100%"}
-            h={"50px"}
-            bg={"primary.200"}
-            color={"primary.50"}
-            isLoading={loginLoading}
-            _focus={"none"}
-            onClick={submitHandler}
-            _active={"none"}
-            _hover={"none"}
-          >
-            Login
-          </Button>
-          <Spacer mt={4} />
-          <Text
-            fontWeight={600}
-            fontFamily="Lato"
-            fontSize={"md"}
-            color={"secondary.50"}
-            onClick={changeIndexHandler}
-            cursor={"pointer"}
-          >
-            I'm a new member
-          </Text>
-        </Center>
-      </FlexBox>
+      <Formik
+        initialValues={{
+          email: "",
+          password: "",
+        }}
+        validationSchema={validationSchema}
+        onSubmit={submitHandler}
+      >
+        {(props) => {
+          return (
+            <Form
+              style={{
+                width: "100%",
+                height: "100%",
+              }}
+            >
+              <FlexBox
+                flexDirection="column"
+                h={"100%"}
+                w={"100%"}
+                justifyContent="space-around"
+              >
+                <Box w={"100%"}>
+                  <FormInput
+                    type="text"
+                    placeholder="Enter Your Email"
+                    variant={"customOutline"}
+                    label={"Email"}
+                    name="email"
+                  />
+                  <Spacer mt={4} />
+                  <Text fontWeight={600} fontFamily="Lato" fontSize={"xl"}>
+                    Password
+                  </Text>
+                  <FormAssetInput
+                    placeholder="Enter Your Password"
+                    type={show ? "text" : "password"}
+                    rightAsset={icon}
+                    variant={"customOutline"}
+                    name="password"
+                    required
+                  />
+                </Box>
+                <Spacer mt={4} />
+                <Center flexDirection={"column"}>
+                  <Box
+                    w={"35%"}
+                    position="absolute"
+                    bottom={"6rem"}
+                    display={"flex"}
+                    flexDirection={"column"}
+                    justifyContent={"center"}
+                    alignItems={"center"}
+                  >
+                    <Button
+                      w={"100%"}
+                      h={"50px"}
+                      variant={"primaryButton"}
+                      isLoading={loginLoading}
+                      type="submit"
+                    >
+                      Login
+                    </Button>
+                    <Spacer mt={4} />
+                    <Text
+                      position="relative"
+                      onClick={changeIndexHandler}
+                      cursor={"pointer"}
+                      variant="mutedText"
+                    >
+                      I'm a new member
+                    </Text>
+                  </Box>
+                </Center>
+              </FlexBox>
+            </Form>
+          );
+        }}
+      </Formik>
     </Box>
   );
 };

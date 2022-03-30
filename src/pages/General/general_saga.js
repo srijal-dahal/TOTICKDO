@@ -17,8 +17,9 @@ function* addTodo({ payload }) {
     yield put(setPostLoading(true));
 
     const { todo, status } = payload;
-    const user = getLocalStorage("user");
-    const uid = user.uid;
+    const { userData } = getLocalStorage("user");
+
+    const uid = userData.uid;
     const response = yield call(Api.post, `/todos/create/user=${uid}`, {
       name: todo,
       status: status,
@@ -49,8 +50,9 @@ function* updateTodo({ payload }) {
   try {
     const { _id, status } = payload;
     const toggledStatus = !status ?? false;
-    const user = getLocalStorage("user");
-    const uid = user.uid;
+    const { userData } = getLocalStorage("user");
+
+    const uid = userData.uid;
     const updatedTodos = yield call(
       Api.put,
       `/todos/update/${_id}/user=${uid}`,
@@ -82,8 +84,9 @@ function* updateTodo({ payload }) {
 function* getTodos() {
   try {
     yield put(setLoading(true));
-    const user = getLocalStorage("user");
-    const uid = user.uid;
+    const { userData } = getLocalStorage("user");
+
+    const uid = userData.uid;
     const getTodos = yield call(Api.get, `todos/getTodos/user=${uid}`);
     if (
       getTodos.data.success === true &&
@@ -108,8 +111,9 @@ function* getTodos() {
 function* deleteSingleTodo({ payload }) {
   try {
     const { _id } = payload;
-    const user = getLocalStorage("user");
-    const uid = user.uid;
+    const { userData } = getLocalStorage("user");
+
+    const uid = userData.uid;
     const deletedTodo = yield call(
       Api.delete,
       `/todos/delete/${_id}/user=${uid}`

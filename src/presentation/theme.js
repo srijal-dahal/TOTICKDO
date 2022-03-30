@@ -29,9 +29,15 @@ const components = {
       fontFamily: "Lato",
       fontWeight: "light",
       _focus: "none",
-   
+      _active: "none",
+      _hover: "none",
     },
     variants: {
+      primaryButton: {
+        bg: "primary.200",
+        color: "primary.50",
+        position: "relative",
+      },
       mutedButton: {
         bg: "secondary.50",
         color: "primary.50",
@@ -64,6 +70,12 @@ const components = {
         fontFamily: "Lato",
         color: "primary.200",
       }),
+      mutedText: {
+        fontWeight: 600,
+        fontFamily: "Lato",
+        fontSize: "md",
+        color: "secondary.50",
+      },
     },
   },
 
@@ -84,9 +96,9 @@ const components = {
           },
         },
       },
-      customOutline:{
+      customOutline: {
         field: {
-          bg:"transparent",
+          bg: "transparent",
           boderLeftWidth: "0px",
           borderRightWidth: "0px",
           borderTopWidth: "0px",
@@ -97,8 +109,8 @@ const components = {
           _placeholder: {
             color: "secondary.50",
           },
-        }
-      }
+        },
+      },
     },
   },
   Checkbox: {
@@ -145,14 +157,13 @@ const components = {
   },
 
   Divider: {
-    baseStyle: (props) => ({
-      bg: mode("primary.200", "primary.200")(props),
-    }),
+    baseStyle: {
+      borderColor: "primary.200",
+    },
   },
 };
 const config = {
   initialColorModeName: "dark",
-  useSystemColorMode: true,
 };
 
 const overRide = {

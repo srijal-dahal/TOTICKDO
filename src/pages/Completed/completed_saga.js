@@ -13,9 +13,9 @@ import { getLocalStorage } from "_utils/global_function";
 function* getTodos() {
   try {
     yield put(setLoading(true));
-    const user = getLocalStorage("user");
+    const { userData } = getLocalStorage("user");
 
-    const uid = user.uid;
+    const uid = userData.uid;
     const getTodos = yield call(Api.get, `todos/completed-todos/user=${uid}`);
     if (
       getTodos.data.success === true &&
@@ -40,8 +40,9 @@ function* getTodos() {
 function* deleteTodo({ payload }) {
   try {
     const { _id } = payload;
-    const user = getLocalStorage("user");
-    const uid = user.uid;
+    const { userData } = getLocalStorage("user");
+
+    const uid = userData.uid;
     const todos = yield call(Api.delete, `/todos/delete/${_id}/user=${uid}`);
     if (todos.data.success === true) {
       const filteredTodosComplete = todos.data.message.data.todos.filter(
