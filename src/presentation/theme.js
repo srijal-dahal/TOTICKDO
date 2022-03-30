@@ -157,9 +157,15 @@ const components = {
   },
 
   Divider: {
+<<<<<<< HEAD
     baseStyle: {
       borderColor: "primary.200",
     },
+=======
+    baseStyle: (props) => ({
+      bg:"primary.200",
+    }),
+>>>>>>> a66b4ba0d06246b12aac551a1eda57f5a55d4e51
   },
 };
 const config = {
