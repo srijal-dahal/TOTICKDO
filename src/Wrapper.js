@@ -2,6 +2,7 @@ import { ChakraProvider } from "@chakra-ui/react";
 import { createContext, useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import theme from "./presentation/theme";
+import { getLocalStorage } from "./utils/global_function";
 // This is the context that will be used by the Wrapper component.
 // The Wrapper component will be used to wrap the App component.
 const WrapFunctionContext = createContext();
@@ -12,8 +13,8 @@ export function useCheckUser() {
 export default function Wrapper({ children }) {
   const navigate = useNavigate();
   async function validateUser() {
-    const isUser = document.cookie.includes("authorization");
-    const isAuthenticated = isUser !== null && isUser ? true : false;
+    const isUser = getLocalStorage("user");
+    const isAuthenticated = isUser != "" ? true : false;
     if (isAuthenticated) {
       navigate("/general");
     }

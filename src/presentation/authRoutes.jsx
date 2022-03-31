@@ -1,8 +1,9 @@
 import { Navigate, useLocation } from "react-router-dom";
+import { getLocalStorage } from "../utils/global_function";
 const ProtectedRoute = ({ children }) => {
   const location = useLocation();
-  const isUser = document.cookie.includes("authorization");
-  const isAuthenticated = isUser !== null && isUser ? true : false;
+  const isUser = getLocalStorage("user");
+  const isAuthenticated = isUser != "" ? true : false;
   if (!isAuthenticated) {
     return <Navigate to="/" replace state={{ from: location }} />;
   }
