@@ -14,11 +14,9 @@ export default function Wrapper({ children }) {
   const navigate = useNavigate();
   async function validateUser() {
     const isUser = getLocalStorage("user");
-    console.log(
-      "🚀 ~ file: Wrapper.js ~ line 17 ~ validateUser ~ isUser",
-      isUser
-    );
-    const isAuthenticated = isUser != "" && isUser != undefined ? true : false;
+
+    const isAuthenticated =
+      isUser != "" && isUser != undefined && isUser != null ? true : false;
     if (isAuthenticated) {
       navigate("/general");
     }

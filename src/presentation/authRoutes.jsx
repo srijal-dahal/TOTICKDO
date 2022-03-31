@@ -3,7 +3,8 @@ import { getLocalStorage } from "../utils/global_function";
 const ProtectedRoute = ({ children }) => {
   const location = useLocation();
   const isUser = getLocalStorage("user");
-  const isAuthenticated = isUser != "" ? true : false;
+  const isAuthenticated =
+    isUser != "" && isUser != undefined && isUser != null ? true : false;
   if (!isAuthenticated) {
     return <Navigate to="/" replace state={{ from: location }} />;
   }
