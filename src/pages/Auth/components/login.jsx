@@ -24,7 +24,7 @@ const validationSchema = Yup.object().shape({
 const Login = ({ changeIndexHandler }) => {
   const [show, setShow] = useState(false);
   const toast = useToast();
- 
+
   const { loginLoading, loginError } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -37,7 +37,7 @@ const Login = ({ changeIndexHandler }) => {
       dispatch(setLoginError(""));
     }
   }, [loginError]);
- 
+
   function submitHandler(values) {
     const { email, password } = values;
     dispatch(loginUser({ email, password, navigate }));
@@ -94,34 +94,24 @@ const Login = ({ changeIndexHandler }) => {
                 </Box>
                 <Spacer mt={4} />
                 <Center flexDirection={"column"}>
-                  <Box
-                    w={"35%"}
-                    position="absolute"
-                    bottom={"6rem"}
-                    display={"flex"}
-                    flexDirection={"column"}
-                    justifyContent={"center"}
-                    alignItems={"center"}
+                  <Button
+                    w={"100%"}
+                    h={"50px"}
+                    variant={"primaryButton"}
+                    isLoading={loginLoading}
+                    type="submit"
                   >
-                    <Button
-                      w={"100%"}
-                      h={"50px"}
-                      variant={"primaryButton"}
-                      isLoading={loginLoading}
-                      type="submit"
-                    >
-                      Login
-                    </Button>
-                    <Spacer mt={4} />
-                    <Text
-                      position="relative"
-                      onClick={changeIndexHandler}
-                      cursor={"pointer"}
-                      variant="mutedText"
-                    >
-                      I'm a new member
-                    </Text>
-                  </Box>
+                    Login
+                  </Button>
+                  <Spacer mt={4} />
+                  <Text
+                    position="relative"
+                    onClick={changeIndexHandler}
+                    cursor={"pointer"}
+                    variant="mutedText"
+                  >
+                    I'm a new member
+                  </Text>
                 </Center>
               </FlexBox>
             </Form>

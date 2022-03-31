@@ -100,34 +100,24 @@ const SignUp = ({ changeIndexHandler }) => {
                 />
                 <Spacer mt={4} />
                 <Center flexDirection={"column"}>
-                  <Box
-                    w={"35%"}
-                    position="absolute"
-                    bottom={"6rem"}
-                    display={"flex"}
-                    flexDirection={"column"}
-                    justifyContent={"center"}
-                    alignItems={"center"}
+                  <Button
+                    w={"100%"}
+                    h={"50px"}
+                    variant={"primaryButton"}
+                    isLoading={signupLoading}
+                    type="submit"
                   >
-                    <Button
-                      w={"100%"}
-                      h={"50px"}
-                      variant={"primaryButton"}
-                      isLoading={signupLoading}
-                      type="submit"
-                    >
-                      SignUp
-                    </Button>
-                    <Spacer mt={4} />
-                    <Text
-                      position="relative"
-                      onClick={changeIndexHandler}
-                      cursor={"pointer"}
-                      variant="mutedText"
-                    >
-                      I'm already a member
-                    </Text>
-                  </Box>
+                    SignUp
+                  </Button>
+                  <Spacer mt={4} />
+                  <Text
+                    position="relative"
+                    onClick={changeIndexHandler}
+                    cursor={"pointer"}
+                    variant="mutedText"
+                  >
+                    I'm already a member
+                  </Text>
                 </Center>
               </FlexBox>
             </Form>
