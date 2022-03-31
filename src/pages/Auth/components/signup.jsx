@@ -64,40 +64,48 @@ const SignUp = ({ changeIndexHandler }) => {
       >
         {(props) => {
           return (
-            <Form onSubmit={props.handleSubmit}>
+            <Form
+              onSubmit={props.handleSubmit}
+              style={{
+                width: "100%",
+                height: "100%",
+              }}
+            >
               <FlexBox
                 flexDirection="column"
                 h={"100%"}
                 w={"100%"}
-                justifyContent="space-between"
+                justifyContent="space-around"
               >
-                <FormInput
-                  type="text"
-                  placeholder="Enter Your FullName"
-                  variant={"customOutline"}
-                  name="fullName"
-                  label={"Full Name"}
-                />
-                <Spacer mt={4} />
-                <FormInput
-                  type="text"
-                  placeholder="Enter Your Email"
-                  variant={"customOutline"}
-                  label={"Email"}
-                  name="email"
-                />
-                <Spacer mt={4} />
-                <Text fontWeight={600} fontFamily="Lato" fontSize={"xl"}>
-                  Password
-                </Text>
-                <FormAssetInput
-                  placeholder="Enter Your Password"
-                  type={show ? "text" : "password"}
-                  rightAsset={icon}
-                  variant={"customOutline"}
-                  name="password"
-                  required
-                />
+                <Box width="100%">
+                  <FormInput
+                    type="text"
+                    placeholder="Enter Your FullName"
+                    variant={"customOutline"}
+                    name="fullName"
+                    label={"Full Name"}
+                  />
+                  <Spacer mt={4} />
+                  <FormInput
+                    type="text"
+                    placeholder="Enter Your Email"
+                    variant={"customOutline"}
+                    label={"Email"}
+                    name="email"
+                  />
+                  <Spacer mt={4} />
+                  <Text fontWeight={600} fontFamily="Lato" fontSize={"xl"}>
+                    Password
+                  </Text>
+                  <FormAssetInput
+                    placeholder="Enter Your Password"
+                    type={show ? "text" : "password"}
+                    rightAsset={icon}
+                    variant={"customOutline"}
+                    name="password"
+                    required
+                  />
+                </Box>
                 <Spacer mt={4} />
                 <Center flexDirection={"column"}>
                   <Button

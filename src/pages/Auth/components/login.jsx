@@ -92,8 +92,7 @@ const Login = ({ changeIndexHandler }) => {
                     required
                   />
                 </Box>
-                <Spacer mt={4} />
-                <Center flexDirection={"column"}>
+                <Center flexDirection={"column"} pb={2}>
                   <Button
                     w={"100%"}
                     h={"50px"}
