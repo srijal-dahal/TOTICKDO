@@ -37,6 +37,7 @@ export default (state = initState, action) => {
         ...state,
         incompleteTodosLength: action.payload,
       };
+
     case actionTypes.SET_COMPLETED_TODOS_COUNT:
       return {
         ...state,

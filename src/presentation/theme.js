@@ -163,7 +163,7 @@ const components = {
   },
 };
 const config = {
-  initialColorModeName: "dark",
+initialColorMode: "dark",  
 };
 
 const overRide = {
