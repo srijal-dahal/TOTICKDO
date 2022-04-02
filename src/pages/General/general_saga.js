@@ -57,7 +57,6 @@ function* updateTodo({ payload }) {
       }
       return todo;
     });
-    console.log(updateStatus);
     yield put(setTodos(updateStatus));
     const { userData } = getLocalStorage("user");
 
