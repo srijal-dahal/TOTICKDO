@@ -52,12 +52,12 @@ function* updateTodo({ payload }) {
     const { _id, status } = todo;
     const toggledStatus = !status ?? false;
     const updateStatus = todos.map((todo) => {
-      if (todo._id) {
+      if (todo._id===_id) {
         todo.status = toggledStatus;
       }
       return todo;
     });
-
+    console.log(updateStatus);
     yield put(setTodos(updateStatus));
     const { userData } = getLocalStorage("user");
 
