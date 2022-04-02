@@ -48,8 +48,17 @@ function* addTodo({ payload }) {
 }
 function* updateTodo({ payload }) {
   try {
-    const { _id, status } = payload;
+    const { todo, todos } = payload;
+    const { _id, status } = todo;
     const toggledStatus = !status ?? false;
+    const updateStatus = todos.map((todo) => {
+      if (todo._id) {
+        todo.status = toggledStatus;
+      }
+      return todo;
+    });
+
+    yield put(setTodos(updateStatus));
     const { userData } = getLocalStorage("user");
 
     const uid = userData.uid;
