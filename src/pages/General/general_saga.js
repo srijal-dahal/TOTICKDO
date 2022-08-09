@@ -11,41 +11,69 @@ import {
 } from "./general_action";
 import Api from "../../utils/service";
 import { getLocalStorage } from "_utils/global_function";
-const user = getLocalStorage("user");
-function* addTodo({ payload }) {
+// const user = getLocalStorage("user");
+
+const completedTodosCount=(array)=> array?.filter(todo=>todo.status===true).length ?? 0;
+const pendingTodosCount =(array)=> array?.filter((todo) => todo.status === false).length ?? 0;
+
+const todos=[];
+
+function* createTodo({payload}){
   try {
     yield put(setPostLoading(true));
+    const todo={
+      name:payload.todo,
+      status:payload.status
+    }
+    todos.push(todo);
 
-    const { todo, status } = payload;
-    const { userData } = getLocalStorage("user");
-
-    const uid = userData.uid;
-    const response = yield call(Api.post, `/todos/create/user=${uid}`, {
-      name: todo,
-      status: status,
-    });
-    if (
-      response.data.success === true &&
-      response.data.message.data.todos.length != 0
-    ) {
-      yield put(setTodos(response.data.message.data.todos));
+      yield put(setTodos(todos));
       yield put(
-        setCompletedTodosCount(response.data.message.data.completedTodosCount)
+        setCompletedTodosCount(completedTodosCount(todos))
       );
       yield put(
-        setIncompleteTodosCount(response.data.message.data.pendingTodosCount)
+        setIncompleteTodosCount(pendingTodosCount(todos))
       );
       setMessage("Todo added successfully");
       return yield put(setPostLoading(false));
-    }
-    yield put(setError(response.data.message));
-    yield put(setPostLoading(false));
   } catch (error) {
-    console.log(error.response);
-    yield put(setError(error));
-    return yield put(setPostLoading(false));
-  }
+   console.log(error) 
+  } 
 }
+// function* addTodo({ payload }) {
+//   try {
+//     yield put(setPostLoading(true));
+
+//     const { todo, status } = payload;
+//     const { userData } = getLocalStorage("user");
+
+//     const uid = userData.uid;
+//     const response = yield call(Api.post, `/todos/create/user=${uid}`, {
+//       name: todo,
+//       status: status,
+//     });
+//     if (
+//       response.data.success === true &&
+//       response.data.message.data.todos.length != 0
+//     ) {
+//       yield put(setTodos(response.data.message.data.todos));
+//       yield put(
+//         setCompletedTodosCount(response.data.message.data.completedTodosCount)
+//       );
+//       yield put(
+//         setIncompleteTodosCount(response.data.message.data.pendingTodosCount)
+//       );
+//       setMessage("Todo added successfully");
+//       return yield put(setPostLoading(false));
+//     }
+//     yield put(setError(response.data.message));
+//     yield put(setPostLoading(false));
+//   } catch (error) {
+//     console.log(error.response);
+//     yield put(setError(error));
+//     return yield put(setPostLoading(false));
+//   }
+// }
 function* updateTodo({ payload }) {
   try {
     const { todo, todos } = payload;
@@ -146,7 +174,7 @@ function* deleteSingleTodo({ payload }) {
   }
 }
 export default function* watcher() {
-  yield takeEvery(actionTypes.ADD_GENERAL_TODO, addTodo);
+  yield takeEvery(actionTypes.ADD_GENERAL_TODO, createTodo);
   yield takeEvery(actionTypes.EDIT_GENERAL_TODO, updateTodo);
   yield takeEvery(actionTypes.GET_GENERAL_TODOS, getTodos);
   yield takeEvery(actionTypes.DELETE_GENERAL_TODO, deleteSingleTodo);

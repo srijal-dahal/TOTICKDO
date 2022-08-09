@@ -49,6 +49,7 @@ const General = () => {
       submitHandler: deleteHandler,
     },
   ];
+  console.log(todos)
   return (
     <Template padding={5} loading={isLoading}>
       <Header

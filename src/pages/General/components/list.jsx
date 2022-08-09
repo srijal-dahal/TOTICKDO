@@ -2,6 +2,7 @@ import { Divider, Spacer, Center } from "@chakra-ui/react";
 import { List } from "_components";
 
 const TodoList = ({ todos, menuItemOptions, clickHandler }) => {
+  console.log(todos[0])
   return (
     <>
       <List
@@ -20,6 +21,7 @@ const TodoList = ({ todos, menuItemOptions, clickHandler }) => {
       {todos
         .filter((todo) => todos[0] != todo)
         .map((todo, i) => {
+        console.log(todo)
           return (
             <List
               key={i}

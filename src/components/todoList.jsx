@@ -9,6 +9,7 @@ function List({
   menuItem,
   offsetY
 }) {
+  console.log(todoText)
   return (
     <SlideFade offsetY={offsetY} in={true} w={"100%"}>
       <HStack alignItems={"center"} w="100%">
