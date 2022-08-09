@@ -16,7 +16,7 @@ import { getLocalStorage } from "_utils/global_function";
 const completedTodosCount=(array)=> array?.filter(todo=>todo.status===true).length ?? 0;
 const pendingTodosCount =(array)=> array?.filter((todo) => todo.status === false).length ?? 0;
 
-const todos=[];
+let todos=[];
 
 function* createTodo({payload}){
   try {
@@ -132,27 +132,20 @@ function* getTodos() {
 }
 function* deleteSingleTodo({ payload }) {
   try {
-    const { _id } = payload;
-    const { userData } = getLocalStorage("user");
+    const { name } = payload;
+      todos=todos.filter(todo=>todo.name!=name);
 
-    const uid = userData.uid;
-    const deletedTodo = yield call(
-      Api.delete,
-      `/todos/delete/${_id}/user=${uid}`
-    );
-    if (deletedTodo.data.success === true) {
-      yield put(setTodos(deletedTodo.data.message.data.todos));
+      yield put(setTodos(todos));
       yield put(
         setCompletedTodosCount(
-          deletedTodo.data.message.data.completedTodosCount
+          completedTodosCount(todos)
         )
       );
       yield put(
-        setIncompleteTodosCount(deletedTodo.data.message.data.pendingTodosCount)
+        setIncompleteTodosCount(pendingTodosCount(todos))
       );
       setMessage("Todo deleted successfully");
-      return;
-    }
+    
   } catch (error) {
     console.log(error);
     yield put(setError(error));
