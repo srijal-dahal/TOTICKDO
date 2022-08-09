@@ -76,45 +76,31 @@ function* createTodo({payload}){
 // }
 function* updateTodo({ payload }) {
   try {
-    const { todo, todos } = payload;
-    const { _id, status } = todo;
+    const { todo} = payload;
+    const { name, status } = todo;
     const toggledStatus = !status ?? false;
     const updateStatus = todos.map((todo) => {
-      if (todo._id===_id) {
+      if (todo.name===name) {
         todo.status = toggledStatus;
       }
       return todo;
     });
     yield put(setTodos(updateStatus));
-    const { userData } = getLocalStorage("user");
-
-    const uid = userData.uid;
-    const updatedTodos = yield call(
-      Api.put,
-      `/todos/update/${_id}/user=${uid}`,
-      {
-        status: toggledStatus,
-      }
-    );
-    if (updatedTodos.data.success === true) {
-      yield put(setTodos(updatedTodos.data.message.data.todos));
       yield put(
         setCompletedTodosCount(
-          updatedTodos.data.message.data.completedTodosCount
+        completedTodosCount(todos)
         )
       );
       yield put(
         setIncompleteTodosCount(
-          updatedTodos.data.message.data.pendingTodosCount
+          pendingTodosCount(todos)
         )
       );
       yield put(setMessage("Todo updated successfully"));
-      return;
-    }
   } catch (error) {
     console.log(error);
     yield put(setError(error));
-    return yield put(setLoading(false));
+   yield put(setLoading(false));
   }
 }
 function* getTodos() {

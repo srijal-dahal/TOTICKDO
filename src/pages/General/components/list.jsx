@@ -2,7 +2,6 @@ import { Divider, Spacer, Center } from "@chakra-ui/react";
 import { List } from "_components";
 
 const TodoList = ({ todos, menuItemOptions, clickHandler }) => {
-  console.log(todos[0])
   return (
     <>
       <List
