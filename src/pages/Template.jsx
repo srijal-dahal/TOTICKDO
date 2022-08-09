@@ -8,9 +8,8 @@ import {
 import { Tab, Loading } from "_components";
 const Template = ({ children, loading, isTab, ...rest }) => {
   const isUser = false;
- 
   const links = [
-    { path: "/general", name: "General" },
+    { path: "/", name: "General" },
     { path: "/completed", name: "Completed" },
     { path: "/dev", name: "Dev" },
   ];
