@@ -18,7 +18,7 @@ const Completed = () => {
 
   useEffect(() => {
     dispatch(getTodos());
-  }, []);
+  }, [completedTodos]);
 
   function deleteHandler(todo) {
     dispatch(deleteTodo(todo));

@@ -35,8 +35,8 @@ function* getTodos() {
 function* deleteTodo({ payload }) {
   try {
     const { name } = payload;
-      todos=todos.filter(todo=>todo.name!=name);
-      yield put(setCompletedTodos(todos));
+     completedTodos=completedTodos.filter(todo=>todo.name!=name);
+      yield put(setCompletedTodos(completedTodos(todos)));
       yield put(
         setCompletedTodosCount(
           completedTodosCount(todos)
