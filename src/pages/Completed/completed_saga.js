@@ -10,26 +10,21 @@ import {
 } from "./completed_action";
 import Api from "../../utils/service";
 import { getLocalStorage } from "_utils/global_function";
+import {todos,pendingTodosCount,completedTodosCount}from "../General/general_saga.js"
+  const completedTodos =arr=>arr?.filter((todo) =>todo.status===true);
+
 function* getTodos() {
   try {
     yield put(setLoading(true));
-    const { userData } = getLocalStorage("user");
 
-    const uid = userData.uid;
-    const getTodos = yield call(Api.get, `todos/completed-todos/user=${uid}`);
-    if (
-      getTodos.data.success === true &&
-      getTodos.data.message.data.length != 0
-    ) {
-      yield put(setCompletedTodos(getTodos.data.message.data.completedTodos));
+      yield put(setCompletedTodos(completedTodos(todos)));
       yield put(
-        setCompletedTodosCount(getTodos.data.message.data.completedTodosCount)
+        setCompletedTodosCount(completedTodosCount(todos))
       );
       yield put(
-        setIncompleteTodosCount(getTodos.data.message.data.pendingTodosCount)
+        setIncompleteTodosCount(pendingTodosCount(todos))
       );
       setMessage("Todo added successfully");
-    }
     return yield put(setLoading(false));
   } catch (error) {
     console.log(error);
@@ -39,25 +34,18 @@ function* getTodos() {
 }
 function* deleteTodo({ payload }) {
   try {
-    const { _id } = payload;
-    const { userData } = getLocalStorage("user");
-
-    const uid = userData.uid;
-    const todos = yield call(Api.delete, `/todos/delete/${_id}/user=${uid}`);
-    if (todos.data.success === true) {
-      const filteredTodosComplete = todos.data.message.data.todos.filter(
-        (todo) => todo.status === true
+    const { name } = payload;
+      todos=todos.filter(todo=>todo.name!=name);
+      yield put(setCompletedTodos(todos));
+      yield put(
+        setCompletedTodosCount(
+          completedTodosCount(todos)
+        )
       );
-      const filteredTodosInComplete = todos.data.message.data.todos.filter(
-        (todo) => todo.status === false
+      yield put(
+        setIncompleteTodosCount(pendingTodosCount(todos))
       );
-
-      yield put(setCompletedTodos(filteredTodosComplete));
-      yield put(setCompletedTodosCount(filteredTodosComplete.length));
-      yield put(setIncompleteTodosCount(filteredTodosInComplete.length));
-      setMessage("Todo deleted successfully");
-      return;
-    }
+    yield put(setMessage("Todo deleted successfully"));
   } catch (error) {
     console.log(error);
     yield put(setError(error));

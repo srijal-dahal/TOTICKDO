@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { Divider, Text, Spacer, Center, Button } from "@chakra-ui/react";
 import { AssetInput, Image, List, Alert } from "_components";
 import Template from "../Template";
-import TodoSvg from "_assets/todos.png";
 import { useSelector, useDispatch } from "react-redux";
 import { getTodos, deleteTodo } from "./completed_action";
 import { deleteTodo as deleteGeneralTodo } from "../General/general_action";
@@ -16,6 +15,7 @@ const Completed = () => {
     incompleteTodosLength,
     completedTodosLength,
   } = useSelector((state) => state.completed);
+
   useEffect(() => {
     dispatch(getTodos());
   }, []);
@@ -24,9 +24,6 @@ const Completed = () => {
     dispatch(deleteTodo(todo));
     dispatch(deleteGeneralTodo(todo));
   }
-  useEffect(() => {
-    dispatch(getTodos());
-  }, []);
 
   const menuItemOptions = [
     {
