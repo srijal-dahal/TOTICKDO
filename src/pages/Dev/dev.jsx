@@ -14,7 +14,6 @@ import { RiMessage2Fill } from "react-icons/ri";
 import { TiLocation } from "react-icons/ti";
 import { IoMdCall, IoMdMail } from "react-icons/io";
 import Template from "../Template";
-import Info from "_assets/info.png";
 import Yuvraj from "_assets/yuvraj.png";
 import { Image } from "_components";
 const Dev = () => {
@@ -63,7 +62,9 @@ const Dev = () => {
             ml={"5px"}
             mb={"5px"}
           >
-            Website Developer<br/>Full Stack
+            Website Developer
+            <br />
+            Full Stack
           </Text>
 
           <HStack>

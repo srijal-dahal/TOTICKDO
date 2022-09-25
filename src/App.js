@@ -4,7 +4,7 @@ import { General, Dev, Completed, Auth } from "_pages";
 import { BrowserRouter } from "react-router-dom";
 import { ThemeToggle } from "_components/";
 import { hot } from "react-hot-loader/root";
-// import ProtectedRoutes from "_presentation/authRoutes";
+// import ProtectedRoutes fro "_presentation/authRoutes";
 import "_presentation/font";
 function App() {
   return (
@@ -12,24 +12,9 @@ function App() {
       <Wrapper>
         <ThemeToggle />
         <Routes>
-          <Route
-            path="/"
-            element={
-                <General />
-            }
-          />
-          <Route
-            path="/dev"
-            element={
-                <Dev />
-            }
-          />
-          <Route
-            path="/completed"
-            element={
-                <Completed />
-            }
-          />
+          <Route path="/" element={<General />} />
+          <Route path="/dev" element={<Dev />} />
+          <Route path="/completed" element={<Completed />} />
         </Routes>
       </Wrapper>
     </BrowserRouter>
