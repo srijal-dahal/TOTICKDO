@@ -20,7 +20,6 @@ const TodoList = ({ todos, menuItemOptions, clickHandler }) => {
       {todos
         .filter((todo) => todos[0] != todo)
         .map((todo, i) => {
-        console.log(todo)
           return (
             <List
               key={i}

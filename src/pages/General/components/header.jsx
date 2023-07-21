@@ -34,6 +34,8 @@ const Header = ({
           <Button
             variant={"mutedButton"}
             size={"sm"}
+            backgroundColor={"secondary.50"}
+            color={"primary.50"}
             h={"1.5rem"}
             isLoading={isPostLoading}
             onClick={submitHandler}

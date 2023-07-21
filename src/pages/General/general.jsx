@@ -17,12 +17,13 @@ const General = () => {
     completedTodosLength,
   } = useSelector((state) => state.general);
   function clickHandler(todo) {
-    dispatch(updateTodo({todo,todos}));
+    dispatch(updateTodo({ todo, todos }));
   }
   function onChangeHandler(e) {
     setTodo(e.target.value);
   }
   function submitHandler(e) {
+    if (todo.length === 0) return;
     dispatch(addTodo({ todo, status: false }));
     setTodo("");
   }

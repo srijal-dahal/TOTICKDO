@@ -97,8 +97,8 @@ const Dev = () => {
       >
         <Text textAlign={"justify"}>
           Totickdo is a basic to-do web application created to learn about
-          programming.It is created by using a MERN stack. If you want to
-          contact me then you can do so by :
+          programming. It is created by using React Js.
+          <br /> Contact Info :
         </Text>
         <VStack mt={3} alignItems={"flex-start"}>
           <HStack>

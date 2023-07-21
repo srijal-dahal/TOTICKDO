@@ -1,3 +1,4 @@
+import crypto from "crypto";
 import { call, put, takeEvery } from "redux-saga/effects";
 import actionTypes from "./general_type";
 import {
@@ -9,79 +10,62 @@ import {
   setIncompleteTodosCount,
   setCompletedTodosCount,
 } from "./general_action";
-import Api from "../../utils/service";
-import { getLocalStorage } from "_utils/global_function";
-// const user = getLocalStorage("user");
 
-export const completedTodosCount=(array)=> array?.filter(todo=>todo.status===true).length ?? 0;
-export const pendingTodosCount =(array)=> array?.filter((todo) => todo.status === false).length ?? 0;
+export const completedTodosCount = (array) =>
+  array?.filter((todo) => todo.status === true).length ?? 0;
+export const pendingTodosCount = (array) =>
+  array?.filter((todo) => todo.status === false).length ?? 0;
 
-export let todos=[];
+export let todos = [];
 
-function* createTodo({payload}){
+function* createTodo({ payload }) {
   try {
     yield put(setPostLoading(true));
-    const todo={
-      name:payload.todo,
-      status:payload.status
-    }
-    todos.push(todo);
+    const id = crypto.randomBytes(10).toString("hex");
+    const todo = {
+      id: id,
+      name: payload.todo,
+      status: payload.status,
+    };
+    todos = [todo, ...todos];
 
-      yield put(setTodos(todos));
-      yield put(
-        setCompletedTodosCount(completedTodosCount(todos))
-      );
-      yield put(
-        setIncompleteTodosCount(pendingTodosCount(todos))
-      );
-      setMessage("Todo added successfully");
-      return yield put(setPostLoading(false));
+    yield put(setTodos(todos));
+    yield put(setCompletedTodosCount(completedTodosCount(todos)));
+    yield put(setIncompleteTodosCount(pendingTodosCount(todos)));
+    setMessage("Todo added successfully");
+    return yield put(setPostLoading(false));
   } catch (error) {
-   console.log(error) 
-  } 
+    console.log(error);
+  }
 }
 
 function* updateTodo({ payload }) {
   try {
-    const { todo} = payload;
-    const { name, status } = todo;
-    const toggledStatus = !status ?? false;
+    const { todo } = payload;
+    const { id } = todo;
     const updateStatus = todos.map((todo) => {
-      if (todo.name===name) {
-        todo.status = toggledStatus;
+      if (todo.id === id) {
+        todo.status = !todo.status;
       }
       return todo;
     });
     yield put(setTodos(updateStatus));
-      yield put(
-        setCompletedTodosCount(
-        completedTodosCount(todos)
-        )
-      );
-      yield put(
-        setIncompleteTodosCount(
-          pendingTodosCount(todos)
-        )
-      );
-      yield put(setMessage("Todo updated successfully"));
+    yield put(setCompletedTodosCount(completedTodosCount(todos)));
+    yield put(setIncompleteTodosCount(pendingTodosCount(todos)));
+    yield put(setMessage("Todo updated successfully"));
   } catch (error) {
-    console.log(error);
     yield put(setError(error));
-   yield put(setLoading(false));
+    yield put(setLoading(false));
   }
 }
 function* getTodos() {
   try {
     yield put(setLoading(true));
-      yield put(setTodos(todos));
-      yield put(
-        setCompletedTodosCount(completedTodosCount(todos))
-      );
-      yield put(
-        setIncompleteTodosCount(pendingTodosCount(todos))
-      );
-      yield put(setMessage("Todo added successfully"));
-     yield put(setLoading(false));
+    yield put(setTodos(todos));
+    yield put(setCompletedTodosCount(completedTodosCount(todos)));
+    yield put(setIncompleteTodosCount(pendingTodosCount(todos)));
+    yield put(setMessage("Todo added successfully"));
+    yield put(setLoading(false));
   } catch (error) {
     console.log(error);
     yield put(setError(error));
@@ -90,20 +74,13 @@ function* getTodos() {
 }
 function* deleteSingleTodo({ payload }) {
   try {
-    const { name } = payload;
-      todos=todos.filter(todo=>todo.name!=name);
+    const { id } = payload;
+    todos = todos.filter((todo) => todo.id != id);
 
-      yield put(setTodos(todos));
-      yield put(
-        setCompletedTodosCount(
-          completedTodosCount(todos)
-        )
-      );
-      yield put(
-        setIncompleteTodosCount(pendingTodosCount(todos))
-      );
-      setMessage("Todo deleted successfully");
-    
+    yield put(setTodos(todos));
+    yield put(setCompletedTodosCount(completedTodosCount(todos)));
+    yield put(setIncompleteTodosCount(pendingTodosCount(todos)));
+    setMessage("Todo deleted successfully");
   } catch (error) {
     console.log(error);
     yield put(setError(error));

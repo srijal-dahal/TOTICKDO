@@ -11,19 +11,6 @@ export function useCheckUser() {
   return useContext(WrapContext);
 }
 export default function Wrapper({ children }) {
-  const navigate = useNavigate();
-  async function validateUser() {
-    const isUser = getLocalStorage("user");
-
-    const isAuthenticated =
-      isUser != "" && isUser != undefined && isUser != null ? true : false;
-    if (isAuthenticated) {
-      navigate("/general");
-    }
-  }
-  useEffect(() => {
-    validateUser();
-  }, []);
   return (
     <ChakraProvider theme={theme}>
       <WrapContext.Provider value={{}}>{children}</WrapContext.Provider>

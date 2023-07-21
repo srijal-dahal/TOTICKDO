@@ -41,8 +41,7 @@ const components = {
       mutedButton: {
         bg: "secondary.50",
         color: "primary.50",
-        _hover: "none",
-        _focus: {
+        _active: {
           borderColor: "primary.200",
           borderWidth: "2px",
           borderStyle: "outline",
@@ -163,7 +162,7 @@ const components = {
   },
 };
 const config = {
-initialColorMode: "dark",  
+  initialColorMode: "dark",
 };
 
 const overRide = {

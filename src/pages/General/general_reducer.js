@@ -24,7 +24,7 @@ export default (state = initState, action) => {
     case actionTypes.SET_GENERAL_TODOS:
       return {
         ...state,
-        todos: action.payload,
+        todos: [...action.payload],
       };
 
     case actionTypes.SET_GENERAL_MESSAGE:
